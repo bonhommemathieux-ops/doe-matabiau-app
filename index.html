@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>DOE MATABIAU — Admin</title>
+  <title>DOE MATABIAU</title>
   <link rel="stylesheet" href="styles.css">
   <link rel="manifest" href="manifest.json">
   <meta name="theme-color" content="#0b3b8c">
@@ -11,23 +11,46 @@
 </head>
 <body>
 
-<!-- Overlay login -->
+<!-- Overlay choix rôle + login -->
 <div class="login-overlay" id="login">
   <div class="login-box">
-    <h2>DOE MATABIAU — Admin</h2>
-    <p>Entre ton <strong>Personal Access Token GitHub</strong> (scope <code>repo</code>) pour pouvoir modifier et sauvegarder sur le repo.</p>
-    <input type="password" id="token-input" placeholder="ghp_xxxxxxxxxxxxxxxxxxxxxxxxxxxxxx">
-    <button onclick="connecter()">Se connecter</button>
-    <p style="font-size:11px;margin-top:12px;">
-      Le token reste dans ton navigateur (localStorage). Pour le révoquer : github.com/settings/tokens<br>
-      <a href="viewer.html">Mode visiteur (Joël) →</a>
-    </p>
+    <h2>DOE MATABIAU</h2>
+    <p>Choisis ton rôle :</p>
+    <div class="role-choix">
+      <button class="role-btn admin" onclick="choisirRole('admin')">
+        <span class="emoji">🔑</span>
+        Admin · Mathieu
+        <span class="descr">Modifie tout, invite les comptes</span>
+      </button>
+      <button class="role-btn fctp" onclick="choisirRole('fctp')">
+        <span class="emoji">🏗</span>
+        FCTP
+        <span class="descr">VRD, voiries, enrobé</span>
+      </button>
+      <button class="role-btn netpc" onclick="choisirRole('netpc')">
+        <span class="emoji">🔧</span>
+        NETPC
+        <span class="descr">Tubes, soudures, essais</span>
+      </button>
+      <button class="role-btn viewer" onclick="choisirRole('viewer')">
+        <span class="emoji">👁</span>
+        Visibilité
+        <span class="descr">Lecture seule (MOE, Joël…)</span>
+      </button>
+    </div>
+
+    <div id="zone-token" style="display:none;">
+      <p>Colle le <strong>token GitHub partagé</strong> fourni par Mathieu (<code>ghp_...</code>) :</p>
+      <input type="password" id="token-input" placeholder="ghp_xxxxxxxxxxxxxxxxxxxxxxxxxxxxxx">
+      <button onclick="connecter()">Se connecter</button>
+      <p style="font-size:11px;margin-top:12px;">Le token reste dans ton navigateur (localStorage).</p>
+    </div>
   </div>
 </div>
 
 <header class="topbar" style="display:none;" id="topbar">
   <h1>DOE MATABIAU</h1>
-  <span class="badge">ADMIN · Mathieu</span>
+  <span class="badge" id="role-badge">—</span>
   <span>Avancement global :</span>
   <span class="global-pct" id="global-pct">0 %</span>
   <button class="secondary" onclick="deconnecter()">Déconnexion</button>
@@ -35,9 +58,21 @@
 
 <main style="display:none;" id="main">
   <div class="toolbar">
-    <button class="success" onclick="pousserGitHub()">💾 Sauvegarder GitHub</button>
+    <button class="success" onclick="pousserGitHub()" id="btn-save">💾 Sauvegarder GitHub</button>
     <button onclick="genererExcel()">📊 Exporter Excel</button>
     <button class="secondary" onclick="rechargerData()">🔄 Recharger</button>
+    <select id="filtre-secteur" onchange="appliquerFiltre()">
+      <option value="">Tous secteurs</option>
+      <option value="S2">Secteur 2</option>
+      <option value="S3">Secteur 3</option>
+    </select>
+    <select id="filtre-statut" onchange="appliquerFiltre()">
+      <option value="">Tous statuts</option>
+      <option value="complete">🟢 Complet</option>
+      <option value="cours">🟠 En cours</option>
+      <option value="bloque">🔴 Bloqué</option>
+      <option value="vide">⚪ Non démarré</option>
+    </select>
     <span style="flex:1;"></span>
     <span style="font-size:12px;color:var(--texte-faible);align-self:center;">
       Dernière màj : <span id="last-update">—</span>
@@ -47,7 +82,6 @@
   <div class="dashboard-grid" id="grid"></div>
 </main>
 
-<!-- Modal fiche rue -->
 <div class="modal-backdrop" id="modal">
   <div class="modal">
     <div id="modal-body"></div>
@@ -58,14 +92,19 @@
 
 <script src="app.js"></script>
 <script>
-MODE_ADMIN = true;
-
-async function init() {
-  // Vérifier si token déjà stocké
-  const t = localStorage.getItem("gh_token_doe");
-  if (t) {
-    TOKEN_GH = t;
-    await demarrer();
+function choisirRole(r) {
+  ROLE = r;
+  if (r === "viewer") {
+    // Pas besoin de token
+    TOKEN_GH = null;
+    demarrer();
+  } else {
+    document.getElementById("zone-token").style.display = "block";
+    const t = localStorage.getItem("gh_token_doe");
+    if (t) {
+      TOKEN_GH = t;
+      document.getElementById("token-input").value = t;
+    }
   }
 }
 
@@ -79,17 +118,23 @@ async function connecter() {
 
 function deconnecter() {
   localStorage.removeItem("gh_token_doe");
+  localStorage.removeItem("doe_role");
   location.reload();
 }
 
 async function demarrer() {
   try {
     await chargerData();
+    localStorage.setItem("doe_role", ROLE);
     document.getElementById("login").style.display = "none";
     document.getElementById("topbar").style.display = "flex";
     document.getElementById("main").style.display = "block";
     document.getElementById("last-update").textContent = DATA.meta.updated || "—";
-    rendreDashboard(document.getElementById("grid"), true);
+    const badge = document.getElementById("role-badge");
+    badge.textContent = ROLES[ROLE].label;
+    badge.className = "badge badge-" + ROLE;
+    if (!peutEcrire()) document.getElementById("btn-save").style.display = "none";
+    rendreDashboard(document.getElementById("grid"));
   } catch (e) {
     toast("Erreur chargement data : " + e.message, true);
   }
@@ -98,18 +143,52 @@ async function demarrer() {
 async function rechargerData() {
   await chargerData();
   document.getElementById("last-update").textContent = DATA.meta.updated || "—";
-  rendreDashboard(document.getElementById("grid"), true);
+  appliquerFiltre();
   toast("Rechargé");
 }
 
-// Fermer modal au clic sur backdrop
+function appliquerFiltre() {
+  const fs = document.getElementById("filtre-statut").value;
+  const fsec = document.getElementById("filtre-secteur").value;
+  const grid = document.getElementById("grid");
+  grid.innerHTML = "";
+  const rues = DATA.rues.filter(r => {
+    if (fsec && r.secteur !== fsec) return false;
+    if (!fs) return true;
+    const s = statutRue(r.code);
+    if (fs === "complete") return s.pct === 100 && s.r === 0;
+    if (fs === "cours") return s.pct > 0 && s.pct < 100 && s.r === 0;
+    if (fs === "bloque") return s.r > 0;
+    if (fs === "vide") return s.pct === 0 && s.r === 0;
+    return true;
+  });
+  const savedRues = DATA.rues;
+  DATA.rues = rues;
+  rendreDashboard(grid);
+  DATA.rues = savedRues;
+}
+
 document.getElementById("modal").addEventListener("click", (e) => {
   if (e.target.id === "modal") fermerModal();
 });
 
-init();
+// Auto-restore rôle précédent
+const savedRole = localStorage.getItem("doe_role");
+if (savedRole) {
+  ROLE = savedRole;
+  if (ROLE === "viewer") {
+    demarrer();
+  } else {
+    const t = localStorage.getItem("gh_token_doe");
+    if (t) {
+      TOKEN_GH = t;
+      demarrer();
+    } else {
+      choisirRole(ROLE);
+    }
+  }
+}
 
-// Service Worker (PWA)
 if ('serviceWorker' in navigator) {
   navigator.serviceWorker.register('sw.js').catch(() => {});
 }

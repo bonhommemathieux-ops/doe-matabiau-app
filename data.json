@@ -3,22 +3,22 @@
     "project": "RCU TOULOUSE MATABIAU",
     "moa": "TER (Toulouse Energies Renouvelables)",
     "moe": "GTA ENERGIES",
-    "entreprise": "FCTP",
+    "entreprises": ["FCTP", "NETPC"],
     "redacteur": "Mathieu BONHOMME",
     "indice": "A",
     "updated": "2026-10-15"
   },
   "chapitres": [
-    { "id": "01", "label": "Plans de récolement", "critical": true },
-    { "id": "02", "label": "Matériels posés", "critical": true },
-    { "id": "03", "label": "Essais & contrôles", "critical": true },
-    { "id": "04", "label": "FCQ & auto-contrôles", "critical": false },
-    { "id": "05", "label": "PV de réception", "critical": true },
-    { "id": "06", "label": "Sécurité (PPSPS/diag/AIPR)", "critical": false },
-    { "id": "07", "label": "Voiries & revêtement", "critical": true },
-    { "id": "08", "label": "Photos de chantier", "critical": false },
-    { "id": "09", "label": "Non-conformités & réserves", "critical": false },
-    { "id": "10", "label": "Correspondance MOE/MOA", "critical": false }
+    { "id": "01", "label": "Plans de récolement", "critical": true, "fctp": true, "netpc": true },
+    { "id": "02", "label": "Matériels posés (tubes/vannes/chambres)", "critical": true, "fctp": false, "netpc": true },
+    { "id": "03", "label": "Essais & contrôles (soudures/pression)", "critical": true, "fctp": false, "netpc": true },
+    { "id": "04", "label": "FCQ & auto-contrôles", "critical": false, "fctp": true, "netpc": true },
+    { "id": "05", "label": "PV de réception", "critical": true, "fctp": true, "netpc": true },
+    { "id": "06", "label": "Sécurité (PPSPS/diag/AIPR)", "critical": false, "fctp": true, "netpc": true },
+    { "id": "07", "label": "Voiries & revêtement", "critical": true, "fctp": true, "netpc": false },
+    { "id": "08", "label": "Photos de chantier", "critical": false, "fctp": true, "netpc": true },
+    { "id": "09", "label": "Non-conformités & réserves", "critical": false, "fctp": true, "netpc": true },
+    { "id": "10", "label": "Correspondance MOE/MOA", "critical": false, "fctp": true, "netpc": true }
   ],
   "rues": [
     { "code": "S2-01", "nom": "Rue Montserby", "secteur": "S2" },

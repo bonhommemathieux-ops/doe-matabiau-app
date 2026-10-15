@@ -11,13 +11,14 @@
 </head>
 <body>
 
-<div class="read-only-ribbon">🔒 Mode visibilité (lecture seule) — Joël</div>
+<div class="read-only-ribbon">🔒 Mode visibilité (lecture seule)</div>
 
 <header class="topbar">
   <h1>DOE MATABIAU</h1>
-  <span class="badge viewer-badge">VISIBILITÉ</span>
+  <span class="badge badge-viewer">VISIBILITÉ</span>
   <span>Avancement global :</span>
   <span class="global-pct" id="global-pct">0 %</span>
+  <a href="index.html" style="color:#fff;font-size:12px;">Mode éditeur →</a>
 </header>
 
 <main>
@@ -57,19 +58,15 @@
 
 <script src="app.js"></script>
 <script>
-MODE_ADMIN = false;
+ROLE = "viewer";
 
 function rendreStats() {
   const container = document.getElementById("stats");
-  const c = compterStatut("complete");
-  const en = compterStatut("cours");
-  const bl = compterStatut("bloque");
-  const vi = compterStatut("vide");
   container.innerHTML = `
-    <div class="stat-card vert"><div class="label">Complets</div><div class="value">${c}</div></div>
-    <div class="stat-card orange"><div class="label">En cours</div><div class="value">${en}</div></div>
-    <div class="stat-card rouge"><div class="label">Bloqués</div><div class="value">${bl}</div></div>
-    <div class="stat-card bleu"><div class="label">Non démarrés</div><div class="value">${vi}</div></div>
+    <div class="stat-card vert"><div class="label">Complets</div><div class="value">${compterStatut("complete")}</div></div>
+    <div class="stat-card orange"><div class="label">En cours</div><div class="value">${compterStatut("cours")}</div></div>
+    <div class="stat-card rouge"><div class="label">Bloqués</div><div class="value">${compterStatut("bloque")}</div></div>
+    <div class="stat-card bleu"><div class="label">Non démarrés</div><div class="value">${compterStatut("vide")}</div></div>
     <div class="stat-card"><div class="label">Total rues</div><div class="value">${DATA.rues.length}</div></div>
   `;
 }
@@ -91,7 +88,7 @@ function appliquerFiltre() {
   });
   const savedRues = DATA.rues;
   DATA.rues = rues;
-  rendreDashboard(grid, false);
+  rendreDashboard(grid);
   DATA.rues = savedRues;
 }
 
@@ -100,8 +97,7 @@ async function init() {
     await chargerData();
     document.getElementById("last-update").textContent = DATA.meta.updated || "—";
     rendreStats();
-    rendreDashboard(document.getElementById("grid"), false);
-    // Auto-reload toutes les 60s
+    rendreDashboard(document.getElementById("grid"));
     setInterval(async () => {
       await chargerData();
       document.getElementById("last-update").textContent = DATA.meta.updated || "—";

@@ -1,102 +1,81 @@
 ╔══════════════════════════════════════════════════════════════╗
-║           DOE MATABIAU — Mode d'emploi                        ║
-║           Chantier RCU TOULOUSE MATABIAU — FCTP               ║
+║      DOE MATABIAU v2 — FCTP + NETPC                           ║
+║      Chantier RCU TOULOUSE MATABIAU                           ║
 ╚══════════════════════════════════════════════════════════════╝
 
 ══════════════════════════════════════════════════════════════════
-  CONTENU DU DOSSIER
+  NOUVEAUTÉS v2
 ══════════════════════════════════════════════════════════════════
 
-index.html      → Écran ADMIN (Mathieu) — coche/décoche + sauvegarde
-viewer.html     → Écran VISIBILITÉ (Joël) — lecture seule
-app.js          → Logique commune
-styles.css      → Charte graphique FCTP
-data.json       → Données (20 rues × 10 chapitres) — source de vérité
-manifest.json   → PWA installable
-sw.js           → Service worker (cache offline)
-icons/          → Icônes PWA
-exports/        → Excel Suivi_DOE_Partiel_MATABIAU.xlsx + script generation
+✓ 4 rôles : Admin · FCTP · NETPC · Visibilité
+✓ Dépôt de fichiers par chapitre (PDF, photos, DWG…)
+✓ Ventilation chapitres FCTP / NETPC :
+    01 Plans récolement    → FCTP + NETPC
+    02 Matériels posés     → NETPC uniquement
+    03 Essais & contrôles  → NETPC uniquement
+    04 FCQ                 → FCTP + NETPC
+    05 PV réception        → FCTP + NETPC
+    06 Sécurité            → FCTP + NETPC
+    07 Voiries & revêt.    → FCTP uniquement
+    08 Photos              → FCTP + NETPC
+    09 Non-conformités     → FCTP + NETPC
+    10 Correspondance      → FCTP + NETPC
 
 ══════════════════════════════════════════════════════════════════
-  UTILISATION LOCALE (test immédiat)
+  URLS
 ══════════════════════════════════════════════════════════════════
 
-1. Double-clic sur viewer.html → s'ouvre dans ton navigateur
-2. Double-clic sur index.html  → mode admin (il demandera un token GitHub)
+Admin / Éditeur FCTP / Éditeur NETPC :
+  https://bonhommemathieux-ops.github.io/doe-matabiau-app/
 
-Pour tester SANS GitHub, le fichier data.json local sera lu directement.
-Les coches ne seront PAS sauvegardées — c'est juste pour voir l'interface.
-
-══════════════════════════════════════════════════════════════════
-  DÉPLOIEMENT GITHUB (pour que Joël voie en temps réel)
-══════════════════════════════════════════════════════════════════
-
-ÉTAPE 1 — Créer le repo GitHub
-   • Dans ce dossier, lance : /init-github
-   • Nom suggéré : doe-matabiau-app
-   • Visibilité : public (sinon Joël devra se connecter)
-
-ÉTAPE 2 — Activer GitHub Pages
-   • GitHub → repo → Settings → Pages
-   • Source : branch main / root
-   • Save
-
-ÉTAPE 3 — Créer un Personal Access Token (PAT)
-   • github.com/settings/tokens → Generate new token (classic)
-   • Nom : "DOE MATABIAU App"
-   • Scope à cocher : repo (en entier)
-   • Durée : 1 an (ou pas d'expiration)
-   • Copier le token (ghp_...)
-
-ÉTAPE 4 — Ouvrir ton URL admin
-   • https://<ton-user>.github.io/doe-matabiau-app/index.html
-   • Coller le token → se connecter
-
-ÉTAPE 5 — Donner le lien à Joël
-   • https://<ton-user>.github.io/doe-matabiau-app/viewer.html
-   • Joël peut installer l'app sur son téléphone (menu navigateur → "Ajouter à l'écran d'accueil")
-   • Il verra l'avancement en temps réel (recharge auto toutes les 60 s)
+Visibilité (lecture seule) :
+  https://bonhommemathieux-ops.github.io/doe-matabiau-app/viewer.html
 
 ══════════════════════════════════════════════════════════════════
-  AVANT DÉPLOIEMENT : adapter GITHUB_CONFIG dans app.js
+  COMMENT ÇA MARCHE
 ══════════════════════════════════════════════════════════════════
 
-Dans app.js, ligne ~15, modifier :
-   owner: "bonhomme-mathieux"   → ton pseudo GitHub réel
-   repo:  "doe-matabiau-app"    → nom du repo si différent
-
-══════════════════════════════════════════════════════════════════
-  CODES STATUT
-══════════════════════════════════════════════════════════════════
-
-  ✓   X    Fourni        🟢 vert
-  ~   P    Partiel       🟠 orange
-  ⚠   R    Bloqué        🔴 rouge
-  N/A      Sans objet    🔵 bleu
-  ×        Non démarré   ⚪ gris
-
-══════════════════════════════════════════════════════════════════
-  EXCEL
-══════════════════════════════════════════════════════════════════
-
-Généré 2 façons :
-  A) Depuis l'app  (bouton 📊 Exporter Excel)
-     → Fichier téléchargé par le navigateur (snapshot à jour)
-  B) Depuis Python (exports/gen_excel_template.py)
-     → Fichier vierge avec formules Excel natives (COUNTIF)
-
-Le template exports/Suivi_DOE_Partiel_MATABIAU.xlsx est utilisable
-seul si tu veux saisir à la main dans Excel plutôt que dans l'app.
-Dans ce cas, saisir "X", "P", "R" ou "N/A" dans les cellules du
-Dashboard — les formules %, Statut, Récap se recalculent seules.
+1. Chacun ouvre l'URL éditeur
+2. Choisit son rôle (Admin / FCTP / NETPC / Visibilité)
+3. Admin, FCTP et NETPC collent le même TOKEN GITHUB partagé
+   (tu leur donnes en MP ou SMS, ne jamais sur mail)
+4. L'app charge les 20 rues. Chacun peut :
+   - Cocher le statut de SES chapitres
+   - Déposer des fichiers dans SES chapitres
+   - Voir TOUS les chapitres et fichiers des autres (en lecture)
+5. Chaque action = commit GitHub automatique
+6. Les viewers (Joël, MOE…) rafraîchissent toutes les 60 s
 
 ══════════════════════════════════════════════════════════════════
   SÉCURITÉ
 ══════════════════════════════════════════════════════════════════
 
-• Le token GitHub reste localStorage navigateur (toi uniquement).
-• Joël ne peut PAS modifier — pas de token côté viewer.html.
-• Si tu changes de PC : ressaisir le token dans index.html.
-• Si tu veux révoquer : github.com/settings/tokens → Delete.
+• 1 seul token GitHub partagé entre FCTP et NETPC
+• Les droits par chapitre sont enforced CÔTÉ APP uniquement
+  (quelqu'un de technique peut contourner)
+• Pour un vrai contrôle serveur : passer à Firebase (voir dossier
+  archivé si besoin)
+• Le repo est PUBLIC — ne pas uploader de documents confidentiels
+  (contrats, prix, données personnelles)
+
+══════════════════════════════════════════════════════════════════
+  LIMITES GITHUB
+══════════════════════════════════════════════════════════════════
+
+• Max 24 Mo par fichier (limite API Contents)
+• Pour les plans > 25 Mo : utiliser GitHub LFS ou OneDrive
+• Repo risque de grossir avec les photos : archiver les anciennes
+  à la fin de chaque rue (fichiers dans storage/<rue>/)
+
+══════════════════════════════════════════════════════════════════
+  TOKEN GITHUB (si pas déjà créé)
+══════════════════════════════════════════════════════════════════
+
+1. github.com/settings/tokens → "Generate new token (classic)"
+2. Nom : "DOE MATABIAU App"
+3. Expiration : 1 an
+4. Scopes : coche "repo" (toute la section)
+5. Generate → copier le token (ghp_...)
+6. Le donner en MP à toute personne devant déposer des fichiers
 
 ══════════════════════════════════════════════════════════════════

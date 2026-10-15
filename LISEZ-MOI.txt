@@ -1,0 +1,102 @@
+╔══════════════════════════════════════════════════════════════╗
+║           DOE MATABIAU — Mode d'emploi                        ║
+║           Chantier RCU TOULOUSE MATABIAU — FCTP               ║
+╚══════════════════════════════════════════════════════════════╝
+
+══════════════════════════════════════════════════════════════════
+  CONTENU DU DOSSIER
+══════════════════════════════════════════════════════════════════
+
+index.html      → Écran ADMIN (Mathieu) — coche/décoche + sauvegarde
+viewer.html     → Écran VISIBILITÉ (Joël) — lecture seule
+app.js          → Logique commune
+styles.css      → Charte graphique FCTP
+data.json       → Données (20 rues × 10 chapitres) — source de vérité
+manifest.json   → PWA installable
+sw.js           → Service worker (cache offline)
+icons/          → Icônes PWA
+exports/        → Excel Suivi_DOE_Partiel_MATABIAU.xlsx + script generation
+
+══════════════════════════════════════════════════════════════════
+  UTILISATION LOCALE (test immédiat)
+══════════════════════════════════════════════════════════════════
+
+1. Double-clic sur viewer.html → s'ouvre dans ton navigateur
+2. Double-clic sur index.html  → mode admin (il demandera un token GitHub)
+
+Pour tester SANS GitHub, le fichier data.json local sera lu directement.
+Les coches ne seront PAS sauvegardées — c'est juste pour voir l'interface.
+
+══════════════════════════════════════════════════════════════════
+  DÉPLOIEMENT GITHUB (pour que Joël voie en temps réel)
+══════════════════════════════════════════════════════════════════
+
+ÉTAPE 1 — Créer le repo GitHub
+   • Dans ce dossier, lance : /init-github
+   • Nom suggéré : doe-matabiau-app
+   • Visibilité : public (sinon Joël devra se connecter)
+
+ÉTAPE 2 — Activer GitHub Pages
+   • GitHub → repo → Settings → Pages
+   • Source : branch main / root
+   • Save
+
+ÉTAPE 3 — Créer un Personal Access Token (PAT)
+   • github.com/settings/tokens → Generate new token (classic)
+   • Nom : "DOE MATABIAU App"
+   • Scope à cocher : repo (en entier)
+   • Durée : 1 an (ou pas d'expiration)
+   • Copier le token (ghp_...)
+
+ÉTAPE 4 — Ouvrir ton URL admin
+   • https://<ton-user>.github.io/doe-matabiau-app/index.html
+   • Coller le token → se connecter
+
+ÉTAPE 5 — Donner le lien à Joël
+   • https://<ton-user>.github.io/doe-matabiau-app/viewer.html
+   • Joël peut installer l'app sur son téléphone (menu navigateur → "Ajouter à l'écran d'accueil")
+   • Il verra l'avancement en temps réel (recharge auto toutes les 60 s)
+
+══════════════════════════════════════════════════════════════════
+  AVANT DÉPLOIEMENT : adapter GITHUB_CONFIG dans app.js
+══════════════════════════════════════════════════════════════════
+
+Dans app.js, ligne ~15, modifier :
+   owner: "bonhomme-mathieux"   → ton pseudo GitHub réel
+   repo:  "doe-matabiau-app"    → nom du repo si différent
+
+══════════════════════════════════════════════════════════════════
+  CODES STATUT
+══════════════════════════════════════════════════════════════════
+
+  ✓   X    Fourni        🟢 vert
+  ~   P    Partiel       🟠 orange
+  ⚠   R    Bloqué        🔴 rouge
+  N/A      Sans objet    🔵 bleu
+  ×        Non démarré   ⚪ gris
+
+══════════════════════════════════════════════════════════════════
+  EXCEL
+══════════════════════════════════════════════════════════════════
+
+Généré 2 façons :
+  A) Depuis l'app  (bouton 📊 Exporter Excel)
+     → Fichier téléchargé par le navigateur (snapshot à jour)
+  B) Depuis Python (exports/gen_excel_template.py)
+     → Fichier vierge avec formules Excel natives (COUNTIF)
+
+Le template exports/Suivi_DOE_Partiel_MATABIAU.xlsx est utilisable
+seul si tu veux saisir à la main dans Excel plutôt que dans l'app.
+Dans ce cas, saisir "X", "P", "R" ou "N/A" dans les cellules du
+Dashboard — les formules %, Statut, Récap se recalculent seules.
+
+══════════════════════════════════════════════════════════════════
+  SÉCURITÉ
+══════════════════════════════════════════════════════════════════
+
+• Le token GitHub reste localStorage navigateur (toi uniquement).
+• Joël ne peut PAS modifier — pas de token côté viewer.html.
+• Si tu changes de PC : ressaisir le token dans index.html.
+• Si tu veux révoquer : github.com/settings/tokens → Delete.
+
+══════════════════════════════════════════════════════════════════

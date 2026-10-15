@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>DOE MATABIAU — Visibilité</title>
+  <link rel="stylesheet" href="styles.css">
+  <link rel="manifest" href="manifest.json">
+  <meta name="theme-color" content="#607d8b">
+  <script src="https://cdn.jsdelivr.net/npm/xlsx@0.18.5/dist/xlsx.full.min.js"></script>
+</head>
+<body>
+
+<div class="read-only-ribbon">🔒 Mode visibilité (lecture seule) — Joël</div>
+
+<header class="topbar">
+  <h1>DOE MATABIAU</h1>
+  <span class="badge viewer-badge">VISIBILITÉ</span>
+  <span>Avancement global :</span>
+  <span class="global-pct" id="global-pct">0 %</span>
+</header>
+
+<main>
+  <div class="viewer-stats" id="stats"></div>
+
+  <div class="toolbar">
+    <select id="filtre-statut" onchange="appliquerFiltre()">
+      <option value="">Tous les statuts</option>
+      <option value="complete">🟢 Complet (100%)</option>
+      <option value="cours">🟠 En cours</option>
+      <option value="bloque">🔴 Bloqué</option>
+      <option value="vide">⚪ Non démarré</option>
+    </select>
+    <select id="filtre-secteur" onchange="appliquerFiltre()">
+      <option value="">Tous secteurs</option>
+      <option value="S2">Secteur 2</option>
+      <option value="S3">Secteur 3</option>
+    </select>
+    <button onclick="genererExcel()">📊 Exporter Excel</button>
+    <button class="secondary" onclick="rechargerData()">🔄 Recharger</button>
+    <span style="flex:1;"></span>
+    <span style="font-size:12px;color:var(--texte-faible);align-self:center;">
+      Dernière màj : <span id="last-update">—</span>
+    </span>
+  </div>
+
+  <div class="dashboard-grid" id="grid"></div>
+</main>
+
+<div class="modal-backdrop" id="modal">
+  <div class="modal">
+    <div id="modal-body"></div>
+  </div>
+</div>
+
+<div class="toast" id="toast"></div>
+
+<script src="app.js"></script>
+<script>
+MODE_ADMIN = false;
+
+function rendreStats() {
+  const container = document.getElementById("stats");
+  const c = compterStatut("complete");
+  const en = compterStatut("cours");
+  const bl = compterStatut("bloque");
+  const vi = compterStatut("vide");
+  container.innerHTML = `
+    <div class="stat-card vert"><div class="label">Complets</div><div class="value">${c}</div></div>
+    <div class="stat-card orange"><div class="label">En cours</div><div class="value">${en}</div></div>
+    <div class="stat-card rouge"><div class="label">Bloqués</div><div class="value">${bl}</div></div>
+    <div class="stat-card bleu"><div class="label">Non démarrés</div><div class="value">${vi}</div></div>
+    <div class="stat-card"><div class="label">Total rues</div><div class="value">${DATA.rues.length}</div></div>
+  `;
+}
+
+function appliquerFiltre() {
+  const fs = document.getElementById("filtre-statut").value;
+  const fsec = document.getElementById("filtre-secteur").value;
+  const grid = document.getElementById("grid");
+  grid.innerHTML = "";
+  const rues = DATA.rues.filter(r => {
+    if (fsec && r.secteur !== fsec) return false;
+    if (!fs) return true;
+    const s = statutRue(r.code);
+    if (fs === "complete") return s.pct === 100 && s.r === 0;
+    if (fs === "cours") return s.pct > 0 && s.pct < 100 && s.r === 0;
+    if (fs === "bloque") return s.r > 0;
+    if (fs === "vide") return s.pct === 0 && s.r === 0;
+    return true;
+  });
+  const savedRues = DATA.rues;
+  DATA.rues = rues;
+  rendreDashboard(grid, false);
+  DATA.rues = savedRues;
+}
+
+async function init() {
+  try {
+    await chargerData();
+    document.getElementById("last-update").textContent = DATA.meta.updated || "—";
+    rendreStats();
+    rendreDashboard(document.getElementById("grid"), false);
+    // Auto-reload toutes les 60s
+    setInterval(async () => {
+      await chargerData();
+      document.getElementById("last-update").textContent = DATA.meta.updated || "—";
+      rendreStats();
+      appliquerFiltre();
+    }, 60000);
+  } catch (e) {
+    toast("Erreur chargement : " + e.message, true);
+  }
+}
+
+async function rechargerData() {
+  await chargerData();
+  document.getElementById("last-update").textContent = DATA.meta.updated || "—";
+  rendreStats();
+  appliquerFiltre();
+  toast("Rechargé");
+}
+
+document.getElementById("modal").addEventListener("click", (e) => {
+  if (e.target.id === "modal") fermerModal();
+});
+
+init();
+
+if ('serviceWorker' in navigator) {
+  navigator.serviceWorker.register('sw.js').catch(() => {});
+}
+</script>
+</body>
+</html>

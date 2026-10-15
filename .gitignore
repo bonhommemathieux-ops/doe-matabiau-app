@@ -1,0 +1,10 @@
+__pycache__/
+*.pyc
+.venv/
+venv/
+.env
+*.log
+*.tmp
+Thumbs.db
+desktop.ini
+.DS_Store

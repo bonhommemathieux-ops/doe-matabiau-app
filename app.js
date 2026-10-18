@@ -1,5 +1,5 @@
-// DOE MATABIAU App v2 — Logique commune Admin + FCTP + NETPC + Viewer
-// Stack: GitHub + JSON (data.json versionné via API) + fichiers dans storage/<rue>/<chapitre>/
+// DOE MATABIAU App v3 — Refonte selon STG TER §7 : 3 lots × 32 chap × 21 rues
+// Stack: GitHub + JSON (data.json versionné via API) + fichiers dans storage/<rue>/<lot_id>/<chap_id>/
 
 const STATUTS = {
   "": { label: "Non démarré", classe: "", couleur: "#607d8b" },
@@ -9,11 +9,12 @@ const STATUTS = {
   "NA": { label: "N/A", classe: "NA", couleur: "#1565c0" }
 };
 
+// Rôles : admin voit/modifie tout, fctp modifie LOT_01, netpc modifie LOT_03, viewer lecture seule
 const ROLES = {
-  "admin": { label: "Admin · Mathieu", couleur: "#0b3b8c", peutEcrire: true, filtreChapitres: null },
-  "fctp": { label: "FCTP", couleur: "#f28c28", peutEcrire: true, filtreChapitres: "fctp" },
-  "netpc": { label: "NETPC", couleur: "#1565c0", peutEcrire: true, filtreChapitres: "netpc" },
-  "viewer": { label: "Visibilité", couleur: "#607d8b", peutEcrire: false, filtreChapitres: null }
+  "admin": { label: "Admin · Mathieu", couleur: "#0b3b8c", peutEcrire: true, lots: ["LOT_01", "LOT_02", "LOT_03"] },
+  "fctp": { label: "FCTP (VRD)", couleur: "#f28c28", peutEcrire: true, lots: ["LOT_01"] },
+  "netpc": { label: "NETPC (Pose/Soudage)", couleur: "#1565c0", peutEcrire: true, lots: ["LOT_03"] },
+  "viewer": { label: "Visibilité", couleur: "#607d8b", peutEcrire: false, lots: [] }
 };
 
 const GITHUB_CONFIG = {
@@ -28,13 +29,11 @@ let TOKEN_GH = null;
 let ROLE = "viewer";
 let CURRENT_RUE = null;
 
-// --- Helpers rôle ---
+// --- Helpers rôle / lot ---
 function peutEcrire() { return ROLES[ROLE].peutEcrire && TOKEN_GH; }
-function peutModifierChapitre(chap) {
+function peutModifierLot(lotId) {
   const r = ROLES[ROLE];
-  if (!r.peutEcrire) return false;
-  if (r.filtreChapitres === null) return true;
-  return chap[r.filtreChapitres] === true;
+  return r.peutEcrire && r.lots.includes(lotId);
 }
 
 // --- Chargement data.json ---
@@ -47,12 +46,55 @@ async function chargerData() {
   DATA = await r2.json();
 }
 
+// --- Accès état hiérarchique ---
+function getEtat(code, lotId, chapId) {
+  return DATA.etats?.[code]?.[lotId]?.[chapId] || {};
+}
+function setEtat(code, lotId, chapId, patch) {
+  if (!DATA.etats) DATA.etats = {};
+  if (!DATA.etats[code]) DATA.etats[code] = {};
+  if (!DATA.etats[code][lotId]) DATA.etats[code][lotId] = {};
+  if (!DATA.etats[code][lotId][chapId]) DATA.etats[code][lotId][chapId] = {};
+  Object.assign(DATA.etats[code][lotId][chapId], patch);
+}
+
 // --- Calculs d'avancement ---
+function iterChapitres(callback) {
+  for (const lot of DATA.lots) {
+    for (const chap of lot.chapitres) {
+      callback(lot, chap);
+    }
+  }
+}
+
 function statutRue(code) {
-  const etat = (DATA.etats && DATA.etats[code]) || {};
+  let x = 0, p = 0, na = 0, r = 0, total = 0, nbFichiers = 0;
+  iterChapitres((lot, chap) => {
+    const e = getEtat(code, lot.id, chap.id);
+    const s = e.statut || "";
+    if (s === "X") x++;
+    else if (s === "P") p++;
+    else if (s === "NA") na++;
+    else if (s === "R") r++;
+    total++;
+    nbFichiers += e.fichiers?.length || 0;
+  });
+  const compte = total - na;
+  const pct = compte === 0 ? 100 : Math.round(((x + p * 0.5) / compte) * 100);
+  let classe = "";
+  if (r > 0) classe = "statut-rouge";
+  else if (pct === 100) classe = "statut-vert";
+  else if (pct > 0) classe = "statut-orange";
+  return { x, p, na, r, total, compte, pct, classe, nbFichiers };
+}
+
+function statutLot(code, lotId) {
+  const lot = DATA.lots.find(l => l.id === lotId);
+  if (!lot) return { pct: 0, x: 0, total: 0 };
   let x = 0, p = 0, na = 0, r = 0, total = 0;
-  for (const chap of DATA.chapitres) {
-    const s = etat[chap.id]?.statut || "";
+  for (const chap of lot.chapitres) {
+    const e = getEtat(code, lotId, chap.id);
+    const s = e.statut || "";
     if (s === "X") x++;
     else if (s === "P") p++;
     else if (s === "NA") na++;
@@ -61,11 +103,7 @@ function statutRue(code) {
   }
   const compte = total - na;
   const pct = compte === 0 ? 100 : Math.round(((x + p * 0.5) / compte) * 100);
-  let classe = "";
-  if (r > 0) classe = "statut-rouge";
-  else if (pct === 100) classe = "statut-vert";
-  else if (pct > 0) classe = "statut-orange";
-  return { x, p, na, r, total, compte, pct, classe };
+  return { x, p, na, r, total, compte, pct };
 }
 
 function statutGlobal() {
@@ -86,34 +124,34 @@ function compterStatut(statut) {
 
 // --- Rendu dashboard ---
 function rendreDashboard(container) {
-  const stat = statutGlobal();
-  document.getElementById("global-pct").textContent = stat + " %";
-
-  const grid = container;
-  grid.innerHTML = "";
+  document.getElementById("global-pct").textContent = statutGlobal() + " %";
+  container.innerHTML = "";
   for (const rue of DATA.rues) {
     const s = statutRue(rue.code);
-    const etat = (DATA.etats && DATA.etats[rue.code]) || {};
-    const nbFichiers = Object.values(etat).reduce((n, e) => n + (e.fichiers?.length || 0), 0);
     const card = document.createElement("div");
     card.className = "rue-card " + s.classe;
+
+    const miniLots = DATA.lots.map(lot => {
+      const sl = statutLot(rue.code, lot.id);
+      const minis = lot.chapitres.map(c => {
+        const st = getEtat(rue.code, lot.id, c.id).statut || "";
+        return `<div class="mini-chapitre ${st}" title="${lot.id} · ${c.id} ${c.label}: ${STATUTS[st]?.label || 'vide'}"></div>`;
+      }).join("");
+      return `<div class="mini-lot-group" title="${lot.label} : ${sl.pct}%" style="border-top:2px solid ${lot.couleur};">${minis}</div>`;
+    }).join("");
+
     card.innerHTML = `
       <div class="code">${rue.code} · ${rue.secteur}</div>
       <div class="nom">${rue.nom}</div>
       <div style="display:flex;align-items:baseline;gap:8px;">
         <span class="pct">${s.pct} %</span>
-        <span style="font-size:12px;color:var(--texte-faible);">${s.x}/${s.compte} · 📎 ${nbFichiers}</span>
+        <span style="font-size:12px;color:var(--texte-faible);">${s.x}/${s.compte} · 📎 ${s.nbFichiers}</span>
       </div>
       <div class="barre"><div class="barre-fill" style="width:${s.pct}%"></div></div>
-      <div class="mini-chapitres">
-        ${DATA.chapitres.map(c => {
-          const st = etat[c.id]?.statut || "";
-          return `<div class="mini-chapitre ${st}" title="${c.id} ${c.label}: ${STATUTS[st]?.label || 'vide'}"></div>`;
-        }).join("")}
-      </div>
+      <div class="mini-chapitres" style="display:flex;gap:6px;">${miniLots}</div>
     `;
     card.onclick = () => ouvrirFiche(rue.code);
-    grid.appendChild(card);
+    container.appendChild(card);
   }
 }
 
@@ -121,20 +159,38 @@ function rendreDashboard(container) {
 function ouvrirFiche(code) {
   CURRENT_RUE = code;
   const rue = DATA.rues.find(r => r.code === code);
-  const etat = (DATA.etats && DATA.etats[code]) || {};
   const modal = document.getElementById("modal");
   const body = document.getElementById("modal-body");
   const s = statutRue(code);
 
+  const sections = DATA.lots.map(lot => {
+    const sl = statutLot(code, lot.id);
+    const canEditLot = peutModifierLot(lot.id);
+    return `
+      <div class="lot-section" style="border-left:4px solid ${lot.couleur};padding-left:12px;margin:16px 0;">
+        <h3 style="color:${lot.couleur};margin:0 0 4px 0;">
+          ${lot.label} — ${lot.entreprise}
+          <span style="font-size:14px;color:#555;font-weight:400;">· ${sl.pct}% (${sl.x}/${sl.compte})</span>
+          ${!canEditLot && ROLES[ROLE].peutEcrire ? '<span style="font-size:11px;color:#999;">🔒 lecture seule</span>' : ''}
+        </h3>
+        <div class="chapitres-list">
+          ${lot.chapitres.map(c => renderChapitre(lot, c, getEtat(code, lot.id, c.id))).join("")}
+        </div>
+      </div>
+    `;
+  }).join("");
+
   body.innerHTML = `
     <h2>${rue.code} — ${rue.nom}</h2>
-    <div class="subtitle">Secteur ${rue.secteur} · Avancement : <strong>${s.pct} %</strong> · Rôle : <span style="color:${ROLES[ROLE].couleur};font-weight:600;">${ROLES[ROLE].label}</span></div>
-
-    <div class="chapitres-list">
-      ${DATA.chapitres.map(c => renderChapitre(c, etat[c.id] || {})).join("")}
+    <div class="subtitle">
+      Secteur ${rue.secteur} · Avancement global : <strong>${s.pct} %</strong>
+      · 📎 ${s.nbFichiers} fichier${s.nbFichiers > 1 ? 's' : ''}
+      · Rôle : <span style="color:${ROLES[ROLE].couleur};font-weight:600;">${ROLES[ROLE].label}</span>
     </div>
 
-    <div style="margin-top:16px;display:flex;gap:8px;flex-wrap:wrap;">
+    ${sections}
+
+    <div style="margin-top:16px;display:flex;gap:8px;flex-wrap:wrap;position:sticky;bottom:0;background:#fff;padding:12px 0;border-top:1px solid #eee;">
       <button onclick="genererSommaireDocx('${code}')">📄 Générer sommaire .docx</button>
       ${peutEcrire() ? `<button class="success" onclick="pousserGitHub()">💾 Sauvegarder sur GitHub</button>` : ''}
       <button class="secondary modal-close" onclick="fermerModal()">Fermer</button>
@@ -143,31 +199,29 @@ function ouvrirFiche(code) {
   modal.classList.add("open");
 }
 
-function renderChapitre(chap, e) {
-  const canEdit = peutModifierChapitre(chap);
+function renderChapitre(lot, chap, e) {
+  const canEdit = peutModifierLot(lot.id);
   const st = e.statut || "";
   const fichiers = e.fichiers || [];
-  const resp = [chap.fctp ? "FCTP" : null, chap.netpc ? "NETPC" : null].filter(Boolean).join(" + ");
   return `
     <div class="chapitre-item ${canEdit ? '' : 'locked'}">
       <div class="chapitre-head">
         <div>
           <strong>${chap.id}. ${chap.label}</strong>
           ${chap.critical ? '<span class="dot-critique" title="Critique">●</span>' : ''}
-          <span class="responsable">${resp}</span>
         </div>
         <div class="statut-cell">
           ${canEdit ? `
-            <button class="btn-statut ${st === 'X' ? 'active-X' : ''}" onclick="setStatut('${chap.id}','X')">✓ Fourni</button>
-            <button class="btn-statut ${st === 'P' ? 'active-P' : ''}" onclick="setStatut('${chap.id}','P')">~ Partiel</button>
-            <button class="btn-statut ${st === 'R' ? 'active-R' : ''}" onclick="setStatut('${chap.id}','R')">⚠ Bloqué</button>
-            <button class="btn-statut ${st === 'NA' ? 'active-NA' : ''}" onclick="setStatut('${chap.id}','NA')">N/A</button>
-            <button class="btn-statut" onclick="setStatut('${chap.id}','')">×</button>
+            <button class="btn-statut ${st === 'X' ? 'active-X' : ''}" onclick="setStatut('${lot.id}','${chap.id}','X')">✓ Fourni</button>
+            <button class="btn-statut ${st === 'P' ? 'active-P' : ''}" onclick="setStatut('${lot.id}','${chap.id}','P')">~ Partiel</button>
+            <button class="btn-statut ${st === 'R' ? 'active-R' : ''}" onclick="setStatut('${lot.id}','${chap.id}','R')">⚠ Bloqué</button>
+            <button class="btn-statut ${st === 'NA' ? 'active-NA' : ''}" onclick="setStatut('${lot.id}','${chap.id}','NA')">N/A</button>
+            <button class="btn-statut" onclick="setStatut('${lot.id}','${chap.id}','')">×</button>
           ` : `<span style="color:${STATUTS[st]?.couleur || '#607d8b'};font-weight:600;">${STATUTS[st]?.label || '—'}</span>`}
         </div>
       </div>
       ${canEdit ? `
-        <textarea class="commentaire" onblur="setCommentaire('${chap.id}',this.value)" placeholder="Observations…">${e.commentaire || ''}</textarea>
+        <textarea class="commentaire" onblur="setCommentaire('${lot.id}','${chap.id}',this.value)" placeholder="Observations…">${e.commentaire || ''}</textarea>
       ` : (e.commentaire ? `<div class="commentaire-ro">${e.commentaire}</div>` : '')}
 
       <div class="fichiers-zone">
@@ -178,16 +232,16 @@ function renderChapitre(chap, e) {
                 ${getIconeFichier(f.name)} ${f.name}
               </a>
               <span class="fichier-meta">${(f.taille / 1024).toFixed(0)} ko · ${f.date} · ${f.auteur}</span>
-              ${canEdit ? `<button class="danger btn-mini" onclick="supprimerFichier('${chap.id}',${i})">🗑</button>` : ''}
+              ${canEdit ? `<button class="danger btn-mini" onclick="supprimerFichier('${lot.id}','${chap.id}',${i})">🗑</button>` : ''}
             </div>
           `).join('')}
         </div>
         ${canEdit ? `
-          <label class="upload-zone" ondrop="dropFichier(event,'${chap.id}')" ondragover="event.preventDefault()">
-            <input type="file" style="display:none;" multiple onchange="uploadFichiers('${chap.id}',this.files)">
+          <label class="upload-zone" ondrop="dropFichier(event,'${lot.id}','${chap.id}')" ondragover="event.preventDefault()">
+            <input type="file" style="display:none;" multiple onchange="uploadFichiers('${lot.id}','${chap.id}',this.files)">
             <span>📎 Déposer un fichier (ou glisser-déposer)</span>
           </label>
-        ` : (canEdit === false && peutEcrire() ? `<div class="locked-msg">⛔ Non autorisé pour ${ROLES[ROLE].label}</div>` : '')}
+        ` : (ROLES[ROLE].peutEcrire ? `<div class="locked-msg">⛔ Non autorisé pour ${ROLES[ROLE].label} (lot ${lot.id})</div>` : '')}
       </div>
 
       ${e.date ? `<div class="chapitre-date">Dernière màj : ${e.date}${e.auteur ? ' par ' + e.auteur : ''}</div>` : ''}
@@ -209,45 +263,41 @@ function getIconeFichier(nom) {
 function fermerModal() {
   document.getElementById("modal").classList.remove("open");
   CURRENT_RUE = null;
-  if (document.getElementById("grid")) {
-    rendreDashboard(document.getElementById("grid"));
-  }
+  if (document.getElementById("grid")) rendreDashboard(document.getElementById("grid"));
 }
 
-function setStatut(chapId, statut) {
-  if (!DATA.etats) DATA.etats = {};
-  if (!DATA.etats[CURRENT_RUE]) DATA.etats[CURRENT_RUE] = {};
-  if (!DATA.etats[CURRENT_RUE][chapId]) DATA.etats[CURRENT_RUE][chapId] = {};
-  DATA.etats[CURRENT_RUE][chapId].statut = statut;
-  DATA.etats[CURRENT_RUE][chapId].date = new Date().toISOString().slice(0, 10);
-  DATA.etats[CURRENT_RUE][chapId].auteur = ROLES[ROLE].label;
+function setStatut(lotId, chapId, statut) {
+  setEtat(CURRENT_RUE, lotId, chapId, {
+    statut,
+    date: new Date().toISOString().slice(0, 10),
+    auteur: ROLES[ROLE].label
+  });
   ouvrirFiche(CURRENT_RUE);
 }
 
-function setCommentaire(chapId, texte) {
-  if (!DATA.etats) DATA.etats = {};
-  if (!DATA.etats[CURRENT_RUE]) DATA.etats[CURRENT_RUE] = {};
-  if (!DATA.etats[CURRENT_RUE][chapId]) DATA.etats[CURRENT_RUE][chapId] = {};
-  DATA.etats[CURRENT_RUE][chapId].commentaire = texte;
-  DATA.etats[CURRENT_RUE][chapId].date = new Date().toISOString().slice(0, 10);
-  DATA.etats[CURRENT_RUE][chapId].auteur = ROLES[ROLE].label;
+function setCommentaire(lotId, chapId, texte) {
+  setEtat(CURRENT_RUE, lotId, chapId, {
+    commentaire: texte,
+    date: new Date().toISOString().slice(0, 10),
+    auteur: ROLES[ROLE].label
+  });
 }
 
 // --- Upload fichiers via GitHub Contents API ---
-async function uploadFichiers(chapId, files) {
+async function uploadFichiers(lotId, chapId, files) {
   if (!TOKEN_GH) { toast("Token requis pour upload", true); return; }
   for (const f of files) {
-    await uploadUnFichier(chapId, f);
+    await uploadUnFichier(lotId, chapId, f);
   }
   ouvrirFiche(CURRENT_RUE);
 }
 
-function dropFichier(evt, chapId) {
+function dropFichier(evt, lotId, chapId) {
   evt.preventDefault();
-  uploadFichiers(chapId, evt.dataTransfer.files);
+  uploadFichiers(lotId, chapId, evt.dataTransfer.files);
 }
 
-async function uploadUnFichier(chapId, file) {
+async function uploadUnFichier(lotId, chapId, file) {
   if (file.size > 24 * 1024 * 1024) {
     toast(`${file.name} : > 24 Mo, limite GitHub Contents API`, true);
     return;
@@ -259,31 +309,33 @@ async function uploadUnFichier(chapId, file) {
       const b64 = reader.result.split(",")[1];
       const timestamp = Date.now();
       const safeName = file.name.replace(/[^\w.\-]/g, "_");
-      const path = `storage/${CURRENT_RUE}/${chapId}/${timestamp}_${safeName}`;
+      const path = `storage/${CURRENT_RUE}/${lotId}/${chapId}/${timestamp}_${safeName}`;
       const url = `https://api.github.com/repos/${GITHUB_CONFIG.owner}/${GITHUB_CONFIG.repo}/contents/${path}`;
       try {
         const r = await fetch(url, {
           method: "PUT",
           headers: { Authorization: `token ${TOKEN_GH}`, "Content-Type": "application/json" },
           body: JSON.stringify({
-            message: `Upload ${file.name} dans ${CURRENT_RUE} chap ${chapId} (${ROLES[ROLE].label})`,
+            message: `Upload ${file.name} dans ${CURRENT_RUE}/${lotId}/${chapId} (${ROLES[ROLE].label})`,
             content: b64,
             branch: GITHUB_CONFIG.branch
           })
         });
         if (r.ok) {
-          if (!DATA.etats) DATA.etats = {};
-          if (!DATA.etats[CURRENT_RUE]) DATA.etats[CURRENT_RUE] = {};
-          if (!DATA.etats[CURRENT_RUE][chapId]) DATA.etats[CURRENT_RUE][chapId] = {};
-          if (!DATA.etats[CURRENT_RUE][chapId].fichiers) DATA.etats[CURRENT_RUE][chapId].fichiers = [];
-          DATA.etats[CURRENT_RUE][chapId].fichiers.push({
+          const e = getEtat(CURRENT_RUE, lotId, chapId);
+          const fichiers = e.fichiers || [];
+          fichiers.push({
             name: file.name,
             path: path,
             taille: file.size,
             date: new Date().toISOString().slice(0, 10),
             auteur: ROLES[ROLE].label
           });
-          DATA.etats[CURRENT_RUE][chapId].date = new Date().toISOString().slice(0, 10);
+          setEtat(CURRENT_RUE, lotId, chapId, {
+            fichiers,
+            date: new Date().toISOString().slice(0, 10),
+            auteur: ROLES[ROLE].label
+          });
           await pousserGitHub(true);
           toast(`${file.name} ajouté ✓`);
         } else {
@@ -299,9 +351,10 @@ async function uploadUnFichier(chapId, file) {
   });
 }
 
-async function supprimerFichier(chapId, index) {
+async function supprimerFichier(lotId, chapId, index) {
   if (!confirm("Supprimer ce fichier ?")) return;
-  const f = DATA.etats[CURRENT_RUE][chapId].fichiers[index];
+  const e = getEtat(CURRENT_RUE, lotId, chapId);
+  const f = e.fichiers?.[index];
   if (!f) return;
   const url = `https://api.github.com/repos/${GITHUB_CONFIG.owner}/${GITHUB_CONFIG.repo}/contents/${f.path}`;
   try {
@@ -320,7 +373,7 @@ async function supprimerFichier(chapId, index) {
       })
     });
     if (rDel.ok) {
-      DATA.etats[CURRENT_RUE][chapId].fichiers.splice(index, 1);
+      e.fichiers.splice(index, 1);
       await pousserGitHub(true);
       ouvrirFiche(CURRENT_RUE);
       toast("Supprimé ✓");
@@ -332,10 +385,7 @@ async function supprimerFichier(chapId, index) {
 
 // --- Sauvegarde data.json sur GitHub ---
 async function pousserGitHub(silencieux = false) {
-  if (!TOKEN_GH) {
-    toast("Token GitHub manquant", true);
-    return;
-  }
+  if (!TOKEN_GH) { toast("Token GitHub manquant", true); return; }
   DATA.meta.updated = new Date().toISOString().slice(0, 10);
   const content = btoa(unescape(encodeURIComponent(JSON.stringify(DATA, null, 2))));
   const url = `https://api.github.com/repos/${GITHUB_CONFIG.owner}/${GITHUB_CONFIG.repo}/contents/${GITHUB_CONFIG.path}`;
@@ -349,15 +399,14 @@ async function pousserGitHub(silencieux = false) {
       method: "PUT",
       headers: { Authorization: `token ${TOKEN_GH}`, "Content-Type": "application/json" },
       body: JSON.stringify({
-        message: `Màj DOE partiel ${new Date().toISOString().slice(0, 10)} (${ROLES[ROLE].label})`,
+        message: `Màj DOE ${new Date().toISOString().slice(0, 10)} (${ROLES[ROLE].label})`,
         content: content,
         branch: GITHUB_CONFIG.branch,
         sha: sha
       })
     });
-    if (rPut.ok) {
-      if (!silencieux) toast("Sauvegardé sur GitHub ✓");
-    } else {
+    if (rPut.ok) { if (!silencieux) toast("Sauvegardé sur GitHub ✓"); }
+    else {
       const err = await rPut.json();
       toast("Erreur: " + err.message, true);
     }
@@ -370,78 +419,111 @@ async function pousserGitHub(silencieux = false) {
 function genererExcel() {
   const wb = XLSX.utils.book_new();
 
-  const headerDash = ["Code", "Rue", "Secteur", ...DATA.chapitres.map(c => `${c.id}. ${c.label}`), "Fichiers", "%", "Statut"];
+  // Onglet Dashboard : une ligne par rue, colonnes par chapitre (plats avec préfixe LOT)
+  const colsChap = [];
+  iterChapitres((lot, chap) => colsChap.push({ lotId: lot.id, chapId: chap.id, label: `${lot.id}·${chap.id} ${chap.label}` }));
+  const headerDash = ["Code", "Rue", "Secteur", ...colsChap.map(c => c.label), "Fichiers", "%", "Statut"];
   const rowsDash = [headerDash];
   for (const rue of DATA.rues) {
     const s = statutRue(rue.code);
-    const etat = (DATA.etats && DATA.etats[rue.code]) || {};
-    const chapStats = DATA.chapitres.map(c => etat[c.id]?.statut || "");
-    const nbFichiers = Object.values(etat).reduce((n, e) => n + (e.fichiers?.length || 0), 0);
+    const chapStats = colsChap.map(c => getEtat(rue.code, c.lotId, c.chapId).statut || "");
     let st = "⚪ Non démarré";
     if (s.r > 0) st = "🔴 Bloqué";
     else if (s.pct === 100) st = "🟢 Complet";
     else if (s.pct > 0) st = "🟠 En cours";
-    rowsDash.push([rue.code, rue.nom, rue.secteur, ...chapStats, nbFichiers, s.pct + "%", st]);
+    rowsDash.push([rue.code, rue.nom, rue.secteur, ...chapStats, s.nbFichiers, s.pct + "%", st]);
   }
-  const ws1 = XLSX.utils.aoa_to_sheet(rowsDash);
-  XLSX.utils.book_append_sheet(wb, ws1, "Dashboard");
+  XLSX.utils.book_append_sheet(wb, XLSX.utils.aoa_to_sheet(rowsDash), "Dashboard");
 
-  const headerSuivi = ["Code rue", "Rue", "Chapitre", "Statut", "Date", "Auteur", "Fichiers", "Commentaire"];
+  // Onglet Suivi détaillé : une ligne par rue × lot × chap
+  const headerSuivi = ["Code rue", "Rue", "Lot", "Entreprise", "Chapitre", "Statut", "Date", "Auteur", "Fichiers", "Commentaire"];
   const rowsSuivi = [headerSuivi];
   for (const rue of DATA.rues) {
-    const etat = (DATA.etats && DATA.etats[rue.code]) || {};
-    for (const c of DATA.chapitres) {
-      const e = etat[c.id] || {};
-      const stLabel = STATUTS[e.statut || ""]?.label || "Non démarré";
-      const fichiers = (e.fichiers || []).map(f => f.name).join(" | ");
-      rowsSuivi.push([rue.code, rue.nom, `${c.id}. ${c.label}`, stLabel, e.date || "", e.auteur || "", fichiers, e.commentaire || ""]);
+    for (const lot of DATA.lots) {
+      for (const chap of lot.chapitres) {
+        const e = getEtat(rue.code, lot.id, chap.id);
+        const stLabel = STATUTS[e.statut || ""]?.label || "Non démarré";
+        const fichiers = (e.fichiers || []).map(f => f.name).join(" | ");
+        rowsSuivi.push([rue.code, rue.nom, lot.id, lot.entreprise, `${chap.id}. ${chap.label}`, stLabel, e.date || "", e.auteur || "", fichiers, e.commentaire || ""]);
+      }
     }
   }
   XLSX.utils.book_append_sheet(wb, XLSX.utils.aoa_to_sheet(rowsSuivi), "Suivi détaillé");
 
-  const headerRecap = ["Chapitre", "Responsable", "Fournis (X)", "Partiels (~)", "Bloqués", "N/A", "Non démarrés", "Fichiers"];
+  // Onglet Récap par lot/chap
+  const headerRecap = ["Lot", "Entreprise", "Chapitre", "Fournis (X)", "Partiels (~)", "Bloqués", "N/A", "Non démarrés", "Fichiers"];
   const rowsRecap = [headerRecap];
-  for (const c of DATA.chapitres) {
-    let x = 0, p = 0, r = 0, na = 0, vide = 0, nbF = 0;
-    for (const rue of DATA.rues) {
-      const e = (DATA.etats?.[rue.code]?.[c.id]) || {};
-      const s = e.statut || "";
-      if (s === "X") x++;
-      else if (s === "P") p++;
-      else if (s === "R") r++;
-      else if (s === "NA") na++;
-      else vide++;
-      nbF += (e.fichiers?.length || 0);
+  for (const lot of DATA.lots) {
+    for (const chap of lot.chapitres) {
+      let x = 0, p = 0, r = 0, na = 0, vide = 0, nbF = 0;
+      for (const rue of DATA.rues) {
+        const e = getEtat(rue.code, lot.id, chap.id);
+        const s = e.statut || "";
+        if (s === "X") x++;
+        else if (s === "P") p++;
+        else if (s === "R") r++;
+        else if (s === "NA") na++;
+        else vide++;
+        nbF += (e.fichiers?.length || 0);
+      }
+      rowsRecap.push([lot.id, lot.entreprise, `${chap.id}. ${chap.label}`, x, p, r, na, vide, nbF]);
     }
-    const resp = [c.fctp ? "FCTP" : null, c.netpc ? "NETPC" : null].filter(Boolean).join(" + ");
-    rowsRecap.push([`${c.id}. ${c.label}`, resp, x, p, r, na, vide, nbF]);
   }
   rowsRecap.push([]);
-  rowsRecap.push(["Global", "", "", "", "", "", "", statutGlobal() + "%"]);
+  rowsRecap.push(["Global", "", "", "", "", "", "", "", statutGlobal() + "%"]);
   XLSX.utils.book_append_sheet(wb, XLSX.utils.aoa_to_sheet(rowsRecap), "Récap");
 
-  const nom = `Suivi_DOE_Partiel_MATABIAU_${new Date().toISOString().slice(0,10)}.xlsx`;
+  const nom = `Suivi_DOE_MATABIAU_${new Date().toISOString().slice(0,10)}.xlsx`;
   XLSX.writeFile(wb, nom);
   toast("Excel généré: " + nom);
 }
 
-// --- Génération sommaire .docx ---
+// --- Génération sommaire .docx (HTML enregistré en .doc) ---
 function genererSommaireDocx(code) {
   const rue = DATA.rues.find(r => r.code === code);
-  const etat = (DATA.etats && DATA.etats[code]) || {};
   const s = statutRue(code);
+
+  const sections = DATA.lots.map(lot => {
+    const sl = statutLot(code, lot.id);
+    const rows = lot.chapitres.map(c => {
+      const e = getEtat(code, lot.id, c.id);
+      const st = STATUTS[e.statut || ""]?.label || "—";
+      const fichiers = (e.fichiers || []).map(f => f.name).join("<br>") || "—";
+      return `<tr>
+        <td style="padding:6px;border:1px solid #000;">${c.id}</td>
+        <td style="padding:6px;border:1px solid #000;">${c.label}</td>
+        <td style="padding:6px;border:1px solid #000;">${st}</td>
+        <td style="padding:6px;border:1px solid #000;font-size:10px;">${fichiers}</td>
+        <td style="padding:6px;border:1px solid #000;">${e.commentaire || ''}</td>
+      </tr>`;
+    }).join("");
+    return `
+      <h3 style="color:${lot.couleur};margin-top:24px;">${lot.label} — ${lot.entreprise} (${sl.pct}%)</h3>
+      <table style="width:100%;border-collapse:collapse;">
+        <tr style="background:${lot.couleur};color:#fff;">
+          <th style="padding:6px;border:1px solid #000;">#</th>
+          <th style="padding:6px;border:1px solid #000;">Chapitre</th>
+          <th style="padding:6px;border:1px solid #000;">Statut</th>
+          <th style="padding:6px;border:1px solid #000;">Fichiers</th>
+          <th style="padding:6px;border:1px solid #000;">Observations</th>
+        </tr>
+        ${rows}
+      </table>
+    `;
+  }).join("");
+
   const html = `
-<!DOCTYPE html><html><head><meta charset="utf-8"><title>DOE Partiel ${rue.nom}</title></head><body>
+<!DOCTYPE html><html><head><meta charset="utf-8"><title>DOE ${rue.nom}</title></head><body>
 <div style="font-family:Calibri;">
 <table style="width:100%;border-collapse:collapse;margin-bottom:16px;">
   <tr>
-    <td style="border:1px solid #000;padding:8px;width:30%;"><strong>FCTP + NETPC</strong></td>
-    <td style="border:1px solid #000;padding:8px;">MOA : ${DATA.meta.moa}<br>MOE : ${DATA.meta.moe}<br>Projet : ${DATA.meta.project}</td>
+    <td style="border:1px solid #000;padding:8px;width:30%;"><strong>FCTP (mandataire) + NETPC + ENGIE/Isoplus</strong></td>
+    <td style="border:1px solid #000;padding:8px;">MOA : ${DATA.meta.moa}<br>MOE : ${DATA.meta.moe}<br>Projet : ${DATA.meta.project}<br>Référence sommaire : ${DATA.meta.reference_sommaire || ''}</td>
   </tr>
 </table>
-<h1 style="color:#0b3b8c;text-align:center;">DOE PARTIEL</h1>
+<h1 style="color:#0b3b8c;text-align:center;">DOSSIER DES OUVRAGES EXÉCUTÉS</h1>
 <h2 style="text-align:center;">${rue.code} — ${rue.nom}</h2>
-<p style="text-align:center;">Secteur ${rue.secteur} · Avancement : <strong>${s.pct} %</strong></p>
+<p style="text-align:center;">Secteur ${rue.secteur} · Avancement global : <strong>${s.pct} %</strong></p>
 <table style="width:100%;border-collapse:collapse;margin-top:12px;">
   <tr style="background:#0b3b8c;color:#fff;">
     <th style="padding:6px;border:1px solid #000;">Indice</th>
@@ -453,40 +535,18 @@ function genererSommaireDocx(code) {
     <td style="padding:6px;border:1px solid #000;">${DATA.meta.indice}</td>
     <td style="padding:6px;border:1px solid #000;">${new Date().toLocaleDateString('fr-FR')}</td>
     <td style="padding:6px;border:1px solid #000;">${DATA.meta.redacteur}</td>
-    <td style="padding:6px;border:1px solid #000;">Première diffusion</td>
+    <td style="padding:6px;border:1px solid #000;">DOE par rue conforme STG TER §7</td>
   </tr>
 </table>
-<h3 style="color:#0b3b8c;margin-top:24px;">Sommaire</h3>
-<table style="width:100%;border-collapse:collapse;">
-  <tr style="background:#f28c28;color:#fff;">
-    <th style="padding:6px;border:1px solid #000;">#</th>
-    <th style="padding:6px;border:1px solid #000;">Chapitre</th>
-    <th style="padding:6px;border:1px solid #000;">Resp.</th>
-    <th style="padding:6px;border:1px solid #000;">Statut</th>
-    <th style="padding:6px;border:1px solid #000;">Fichiers</th>
-    <th style="padding:6px;border:1px solid #000;">Observations</th>
-  </tr>
-  ${DATA.chapitres.map(c => {
-    const e = etat[c.id] || {};
-    const st = STATUTS[e.statut || ""]?.label || "—";
-    const resp = [c.fctp ? "FCTP" : null, c.netpc ? "NETPC" : null].filter(Boolean).join(" + ");
-    const fichiers = (e.fichiers || []).map(f => f.name).join("<br>") || "—";
-    return `<tr>
-      <td style="padding:6px;border:1px solid #000;">${c.id}</td>
-      <td style="padding:6px;border:1px solid #000;">${c.label}</td>
-      <td style="padding:6px;border:1px solid #000;">${resp}</td>
-      <td style="padding:6px;border:1px solid #000;">${st}</td>
-      <td style="padding:6px;border:1px solid #000;font-size:10px;">${fichiers}</td>
-      <td style="padding:6px;border:1px solid #000;">${e.commentaire || ''}</td>
-    </tr>`;
-  }).join("")}
-</table>
-<p style="margin-top:24px;font-size:11px;color:#666;">Généré le ${new Date().toLocaleString('fr-FR')} · DOE_MATABIAU_App</p>
+
+${sections}
+
+<p style="margin-top:24px;font-size:11px;color:#666;">Généré le ${new Date().toLocaleString('fr-FR')} · DOE_MATABIAU_App v3</p>
 </div></body></html>`;
   const blob = new Blob([html], { type: "application/msword" });
   const a = document.createElement("a");
   a.href = URL.createObjectURL(blob);
-  a.download = `DOE_Partiel_${rue.code}_${rue.nom.replace(/[^\w]+/g, '_')}.doc`;
+  a.download = `DOE_${rue.code}_${rue.nom.replace(/[^\w]+/g, '_')}.doc`;
   a.click();
   toast("Sommaire généré");
 }

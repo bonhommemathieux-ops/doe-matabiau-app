@@ -507,6 +507,13 @@
               "taille": 944177,
               "date": "2026-10-19",
               "auteur": "Admin"
+            },
+            {
+              "name": "RAPPORT 1-260818a1 FCTP rue de Périole Toulouse_compressed.pdf",
+              "path": "storage/S2-02/LOT_01/08/1792398744524_RAPPORT_1-260818a1_FCTP_rue_de_Periole_Toulouse_compressed.pdf",
+              "taille": 1016225,
+              "date": "2026-10-19",
+              "auteur": "Admin"
             }
           ],
           "date": "2026-10-19",
@@ -519,6 +526,48 @@
               "name": ".DAP Rue de Periole.pdf",
               "path": "storage/S2-02/LOT_01/09/1792398559878_.DAP_Rue_de_Periole.pdf",
               "taille": 407520,
+              "date": "2026-10-19",
+              "auteur": "Admin"
+            }
+          ],
+          "date": "2026-10-19",
+          "auteur": "Admin"
+        },
+        "05": {
+          "statut": "X",
+          "fichiers": [
+            {
+              "name": "Compactage TOULOUSE - Rue Périol - 260388-SED 521.pdf",
+              "path": "storage/S2-02/LOT_01/05/1792398733869_Compactage_TOULOUSE_-_Rue_Periol_-_260388-SED_521.pdf",
+              "taille": 810914,
+              "date": "2026-10-19",
+              "auteur": "Admin"
+            },
+            {
+              "name": "Compactage TOULOUSE - Rue Périole (Aicard - Toussaint).pdf",
+              "path": "storage/S2-02/LOT_01/05/1792398736278_Compactage_TOULOUSE_-_Rue_Periole__Aicard_-_Toussaint_.pdf",
+              "taille": 878559,
+              "date": "2026-10-19",
+              "auteur": "Admin"
+            },
+            {
+              "name": "Compactage TOULOUSE - Rue Périole.pdf",
+              "path": "storage/S2-02/LOT_01/05/1792398738426_Compactage_TOULOUSE_-_Rue_Periole.pdf",
+              "taille": 850180,
+              "date": "2026-10-19",
+              "auteur": "Admin"
+            },
+            {
+              "name": "Q-81735-TOULOUSE - Rue Périole Compactage.pdf",
+              "path": "storage/S2-02/LOT_01/05/1792398740422_Q-81735-TOULOUSE_-_Rue_Periole_Compactage.pdf",
+              "taille": 621060,
+              "date": "2026-10-19",
+              "auteur": "Admin"
+            },
+            {
+              "name": "Q-88217-TOULOUSE - Périole (Aicard-Toussaint).pdf",
+              "path": "storage/S2-02/LOT_01/05/1792398742463_Q-88217-TOULOUSE_-_Periole__Aicard-Toussaint_.pdf",
+              "taille": 621026,
               "date": "2026-10-19",
               "auteur": "Admin"
             }
@@ -941,6 +990,13 @@
               "taille": 286264,
               "date": "2026-10-19",
               "auteur": "Admin"
+            },
+            {
+              "name": "DAP signé.pdf",
+              "path": "storage/S3-01/LOT_01/09/1792398746705_DAP_signe.pdf",
+              "taille": 1657147,
+              "date": "2026-10-19",
+              "auteur": "Admin"
             }
           ],
           "date": "2026-10-19",
@@ -1337,6 +1393,13 @@
               "taille": 883899,
               "date": "2026-10-19",
               "auteur": "Admin"
+            },
+            {
+              "name": "RAPPORT 1-260818a2 FCTP Résidence Lapujade Toulouse_compressed.pdf",
+              "path": "storage/S3-09/LOT_01/08/1792398749004_RAPPORT_1-260818a2_FCTP_Residence_Lapujade_Toulouse_compressed.pdf",
+              "taille": 1122409,
+              "date": "2026-10-19",
+              "auteur": "Admin"
             }
           ],
           "date": "2026-10-19",
@@ -1416,6 +1479,13 @@
               "name": "RAPPORT 1-260925b1 FCTP Lapujade Phase 2 Toulouse_compressed.pdf",
               "path": "storage/S3-10/LOT_01/08/1792398685870_RAPPORT_1-260925b1_FCTP_Lapujade_Phase_2_Toulouse_compressed.pdf",
               "taille": 883899,
+              "date": "2026-10-19",
+              "auteur": "Admin"
+            },
+            {
+              "name": "RAPPORT 1-260818a2 FCTP Résidence Lapujade Toulouse_compressed.pdf",
+              "path": "storage/S3-10/LOT_01/08/1792398751208_RAPPORT_1-260818a2_FCTP_Residence_Lapujade_Toulouse_compressed.pdf",
+              "taille": 1122409,
               "date": "2026-10-19",
               "auteur": "Admin"
             }

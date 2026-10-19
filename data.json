@@ -428,41 +428,6 @@
     },
     "S2-02": {
       "LOT_01": {
-        "01": {
-          "statut": "X",
-          "fichiers": [
-            {
-              "name": "CR_Marquage_Piquetage_Rue_Periole.docx",
-              "path": "storage/S2-02/LOT_01/01/1792398542281_CR_Marquage_Piquetage_Rue_Periole.docx",
-              "taille": 49313,
-              "date": "2026-10-19",
-              "auteur": "Admin"
-            },
-            {
-              "name": "CR_Marquage_Piquetage_Rue_Periole_260925.docx",
-              "path": "storage/S2-02/LOT_01/01/1792398543780_CR_Marquage_Piquetage_Rue_Periole_260925.docx",
-              "taille": 382585,
-              "date": "2026-10-19",
-              "auteur": "Admin"
-            },
-            {
-              "name": "TOULOUSE-MATABIAU-RCU-DESC-S2-PL041-PL043_PH4B-IND B_datesMAJ.pdf",
-              "path": "storage/S2-02/LOT_01/01/1792398545815_TOULOUSE-MATABIAU-RCU-DESC-S2-PL041-PL043_PH4B-IND_B_datesMAJ.pdf",
-              "taille": 2664823,
-              "date": "2026-10-19",
-              "auteur": "Admin"
-            },
-            {
-              "name": "TOULOUSE-MATABIAU-RCU-DEVIATION-VEP_S2_PL041.43_PH4B-IND C_datesMAJ.pdf",
-              "path": "storage/S2-02/LOT_01/01/1792398548692_TOULOUSE-MATABIAU-RCU-DEVIATION-VEP_S2_PL041.43_PH4B-IND_C_datesMAJ.pdf",
-              "taille": 3286962,
-              "date": "2026-10-19",
-              "auteur": "Admin"
-            }
-          ],
-          "date": "2026-10-19",
-          "auteur": "Admin"
-        },
         "02": {
           "statut": "X",
           "fichiers": [
@@ -579,27 +544,6 @@
     },
     "S2-03": {
       "LOT_01": {
-        "01": {
-          "statut": "X",
-          "fichiers": [
-            {
-              "name": "CR_Marquage_Piquetage_S2-03_Rue_Jean_Aicard.docx",
-              "path": "storage/S2-03/LOT_01/01/1792398561787_CR_Marquage_Piquetage_S2-03_Rue_Jean_Aicard.docx",
-              "taille": 53648,
-              "date": "2026-10-19",
-              "auteur": "Admin"
-            },
-            {
-              "name": "TOULOUSE-MATABIAU-RCU-DESC-VEP_S2_PL044-PH_AICARD.pdf",
-              "path": "storage/S2-03/LOT_01/01/1792398563379_TOULOUSE-MATABIAU-RCU-DESC-VEP_S2_PL044-PH_AICARD.pdf",
-              "taille": 2724082,
-              "date": "2026-10-19",
-              "auteur": "Admin"
-            }
-          ],
-          "date": "2026-10-19",
-          "auteur": "Admin"
-        },
         "02": {
           "statut": "X",
           "fichiers": [
@@ -653,20 +597,6 @@
     },
     "S2-04": {
       "LOT_01": {
-        "01": {
-          "statut": "X",
-          "fichiers": [
-            {
-              "name": "CR_Marquage_Piquetage_Rue_LeonJouhaux.docx",
-              "path": "storage/S2-04/LOT_01/01/1792398573334_CR_Marquage_Piquetage_Rue_LeonJouhaux.docx",
-              "taille": 382586,
-              "date": "2026-10-19",
-              "auteur": "Admin"
-            }
-          ],
-          "date": "2026-10-19",
-          "auteur": "Admin"
-        },
         "02": {
           "statut": "X",
           "fichiers": [
@@ -720,20 +650,6 @@
     },
     "S2-05": {
       "LOT_01": {
-        "01": {
-          "statut": "X",
-          "fichiers": [
-            {
-              "name": "CR_Marquage_Piquetage_Rue_LeonJouhaux.docx",
-              "path": "storage/S2-05/LOT_01/01/1792398582312_CR_Marquage_Piquetage_Rue_LeonJouhaux.docx",
-              "taille": 382586,
-              "date": "2026-10-19",
-              "auteur": "Admin"
-            }
-          ],
-          "date": "2026-10-19",
-          "auteur": "Admin"
-        },
         "02": {
           "statut": "X",
           "fichiers": [
@@ -787,20 +703,6 @@
     },
     "S2-06": {
       "LOT_01": {
-        "01": {
-          "statut": "X",
-          "fichiers": [
-            {
-              "name": "CR_Marquage_Piquetage_Rue_StLouis_260925.docx",
-              "path": "storage/S2-06/LOT_01/01/1792398591371_CR_Marquage_Piquetage_Rue_StLouis_260925.docx",
-              "taille": 382612,
-              "date": "2026-10-19",
-              "auteur": "Admin"
-            }
-          ],
-          "date": "2026-10-19",
-          "auteur": "Admin"
-        },
         "02": {
           "statut": "X",
           "fichiers": [
@@ -1321,27 +1223,6 @@
     },
     "S3-09": {
       "LOT_01": {
-        "01": {
-          "statut": "X",
-          "fichiers": [
-            {
-              "name": "CR_Marquage_Piquetage_Lapujade_Phase1_260925.docx",
-              "path": "storage/S3-09/LOT_01/01/1792398662003_CR_Marquage_Piquetage_Lapujade_Phase1_260925.docx",
-              "taille": 382589,
-              "date": "2026-10-19",
-              "auteur": "Admin"
-            },
-            {
-              "name": "CR_Marquage_Piquetage_Lapujade_Phase2_260925.docx",
-              "path": "storage/S3-09/LOT_01/01/1792398663900_CR_Marquage_Piquetage_Lapujade_Phase2_260925.docx",
-              "taille": 382590,
-              "date": "2026-10-19",
-              "auteur": "Admin"
-            }
-          ],
-          "date": "2026-10-19",
-          "auteur": "Admin"
-        },
         "02": {
           "statut": "X",
           "fichiers": [
@@ -1409,27 +1290,6 @@
     },
     "S3-10": {
       "LOT_01": {
-        "01": {
-          "statut": "X",
-          "fichiers": [
-            {
-              "name": "CR_Marquage_Piquetage_Lapujade_Phase1_260925.docx",
-              "path": "storage/S3-10/LOT_01/01/1792398675245_CR_Marquage_Piquetage_Lapujade_Phase1_260925.docx",
-              "taille": 382589,
-              "date": "2026-10-19",
-              "auteur": "Admin"
-            },
-            {
-              "name": "CR_Marquage_Piquetage_Lapujade_Phase2_260925.docx",
-              "path": "storage/S3-10/LOT_01/01/1792398677036_CR_Marquage_Piquetage_Lapujade_Phase2_260925.docx",
-              "taille": 382590,
-              "date": "2026-10-19",
-              "auteur": "Admin"
-            }
-          ],
-          "date": "2026-10-19",
-          "auteur": "Admin"
-        },
         "02": {
           "statut": "X",
           "fichiers": [

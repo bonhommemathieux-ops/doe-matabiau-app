@@ -1,5 +1,5 @@
 // Service Worker — stratégie network-first + versionning auto
-const VERSION = "v3.3-2026-10-18";
+const VERSION = "v4.0-2026-10-28";
 const CACHE = `doe-matabiau-${VERSION}`;
 
 const ASSETS = [

@@ -1,0 +1,1182 @@
+{
+  "meta": {
+    "project": "RCU TOULOUSE MATABIAU",
+    "moa": "TER (Toulouse Energies Renouvelables)",
+    "moe": "GTA ENERGIES",
+    "entreprises": [
+      "FCTP (mandataire)",
+      "NETPC",
+      "ENGIE/Isoplus"
+    ],
+    "redacteur": "Mathieu BONHOMME",
+    "indice": "B",
+    "updated": "2026-10-19",
+    "reference_sommaire": "STG TER RCU-TER-SG-001-B §7 + STP GTA RCU-GTA-SP-001-C §3"
+  },
+  "lots": [
+    {
+      "id": "LOT_01",
+      "label": "LOT 01 — VRD",
+      "dossier": "LOT_01_VRD_FCTP",
+      "entreprise": "FCTP",
+      "role": "fctp",
+      "couleur": "#f28c28",
+      "chapitres": [
+        {
+          "id": "01",
+          "label": "Plan de récolement",
+          "dossier": "01_Plan_de_recolement",
+          "critical": true
+        },
+        {
+          "id": "02",
+          "label": "Fiches techniques matériaux",
+          "dossier": "02_Fiches_techniques_materiaux",
+          "critical": true
+        },
+        {
+          "id": "03",
+          "label": "Analyses granulométriques",
+          "dossier": "03_Analyses_granulometriques",
+          "critical": false
+        },
+        {
+          "id": "04",
+          "label": "Fiches autocontrôle",
+          "dossier": "04_Fiches_autocontrole",
+          "critical": true
+        },
+        {
+          "id": "05",
+          "label": "Rapports compactage",
+          "dossier": "05_Rapports_compactage",
+          "critical": true
+        },
+        {
+          "id": "06",
+          "label": "Fiches suivi chantier",
+          "dossier": "06_Fiches_suivi_chantier",
+          "critical": true
+        },
+        {
+          "id": "07",
+          "label": "Aiguillage/mandrinage FO",
+          "dossier": "07_Aiguillage_mandrinage_FO",
+          "critical": false
+        },
+        {
+          "id": "08",
+          "label": "Reportage photo VRD",
+          "dossier": "08_Reportage_photo_VRD",
+          "critical": false
+        },
+        {
+          "id": "09",
+          "label": "Bons de décharge PUR/déchets",
+          "dossier": "09_Bons_decharge_PUR_dechets",
+          "critical": true
+        },
+        {
+          "id": "10",
+          "label": "Plans détails regards/branchements",
+          "dossier": "10_Plans_details_regards_branchements",
+          "critical": false
+        },
+        {
+          "id": "11",
+          "label": "Profil en long réseau",
+          "dossier": "11_Profil_en_long_reseau",
+          "critical": false
+        }
+      ]
+    },
+    {
+      "id": "LOT_02",
+      "label": "LOT 02 — Fournitures préisolées",
+      "dossier": "LOT_02_FOURNITURES_ENGIE",
+      "entreprise": "ENGIE/Isoplus",
+      "role": "admin",
+      "couleur": "#1b7a3b",
+      "chapitres": [
+        {
+          "id": "01",
+          "label": "Fiches techniques tubes/coudes",
+          "dossier": "01_Fiches_techniques_tubes_coudes",
+          "critical": true
+        },
+        {
+          "id": "02",
+          "label": "Fiche technique détection humidité",
+          "dossier": "02_Fiche_technique_detection_humidite",
+          "critical": true
+        },
+        {
+          "id": "03",
+          "label": "Notes calcul dilatation/lyres",
+          "dossier": "03_Notes_calcul_dilatation_lyres",
+          "critical": true
+        },
+        {
+          "id": "04",
+          "label": "Notes calcul points fixes",
+          "dossier": "04_Notes_calcul_points_fixes",
+          "critical": true
+        },
+        {
+          "id": "05",
+          "label": "Avis techniques constructeur",
+          "dossier": "05_Avis_techniques_constructeur",
+          "critical": false
+        },
+        {
+          "id": "06",
+          "label": "Certificats garantie fournisseurs",
+          "dossier": "06_Certificats_garantie_fournisseurs",
+          "critical": true
+        },
+        {
+          "id": "07",
+          "label": "Notices exploitation/maintenance",
+          "dossier": "07_Notices_exploitation_maintenance",
+          "critical": true
+        }
+      ]
+    },
+    {
+      "id": "LOT_03",
+      "label": "LOT 03 — Pose & Soudage",
+      "dossier": "LOT_03_POSE_SOUDAGE_NETPC",
+      "entreprise": "NETPC",
+      "role": "netpc",
+      "couleur": "#1565c0",
+      "chapitres": [
+        {
+          "id": "01",
+          "label": "Qualifications soudeurs QS",
+          "dossier": "01_Qualifications_soudeurs_QS",
+          "critical": true
+        },
+        {
+          "id": "02",
+          "label": "DMOS/QMOS",
+          "dossier": "02_DMOS_QMOS",
+          "critical": true
+        },
+        {
+          "id": "03",
+          "label": "Formation manchonneurs",
+          "dossier": "03_Formation_manchonneurs",
+          "critical": true
+        },
+        {
+          "id": "04",
+          "label": "Carnet soudure/manchonnage",
+          "dossier": "04_Carnet_soudure_manchonnage",
+          "critical": true
+        },
+        {
+          "id": "05",
+          "label": "Certificats soudure + matière apport",
+          "dossier": "05_Certificats_soudure_matiere_apport",
+          "critical": true
+        },
+        {
+          "id": "06",
+          "label": "Contrôles radiographiques",
+          "dossier": "06_Controles_radiographiques",
+          "critical": true
+        },
+        {
+          "id": "07",
+          "label": "Essais étanchéité manchon",
+          "dossier": "07_Essais_etancheite_manchon",
+          "critical": true
+        },
+        {
+          "id": "08",
+          "label": "Épreuve hydraulique PV",
+          "dossier": "08_Epreuve_hydraulique_PV",
+          "critical": true
+        },
+        {
+          "id": "09",
+          "label": "Étalonnage manomètre",
+          "dossier": "09_Etalonnage_manometre",
+          "critical": false
+        },
+        {
+          "id": "10",
+          "label": "Nettoyage/rinçage/passivation",
+          "dossier": "10_Nettoyage_rincage_passivation",
+          "critical": true
+        },
+        {
+          "id": "11",
+          "label": "Analyses eau pH/TH/Fe",
+          "dossier": "11_Analyses_eau_pH_TH_Fe",
+          "critical": true
+        },
+        {
+          "id": "12",
+          "label": "Essai détection fuite + résistance",
+          "dossier": "12_Essai_detection_fuite_resistance",
+          "critical": true
+        },
+        {
+          "id": "13",
+          "label": "Mise en température",
+          "dossier": "13_Mise_en_temperature",
+          "critical": true
+        },
+        {
+          "id": "14",
+          "label": "Reportage photo soudures/manchons",
+          "dossier": "14_Reportage_photo_soudures_manchons",
+          "critical": false
+        }
+      ]
+    }
+  ],
+  "rues": [
+    {
+      "code": "S2-01",
+      "nom": "Rue Montserby",
+      "secteur": "S2",
+      "dossier": "S2-01 - Rue Montserby"
+    },
+    {
+      "code": "S2-02",
+      "nom": "Rue de Périole",
+      "secteur": "S2",
+      "dossier": "S2-02 - Rue de Périole"
+    },
+    {
+      "code": "S2-03",
+      "nom": "Rue Jean Aicard",
+      "secteur": "S2",
+      "dossier": "S2-03 - Rue Jean Aicard"
+    },
+    {
+      "code": "S2-04",
+      "nom": "Avenue Léon Jouhaux",
+      "secteur": "S2",
+      "dossier": "S2-04 - Avenue Léon Jouhaux"
+    },
+    {
+      "code": "S2-05",
+      "nom": "Rue Léon Jouhaux",
+      "secteur": "S2",
+      "dossier": "S2-05 - Rue Léon Jouhaux"
+    },
+    {
+      "code": "S2-06",
+      "nom": "Rue St Louis - Noémie Dessale - Jolimont",
+      "secteur": "S2",
+      "dossier": "S2-06 - Rue St Louis - Noémie Dessale - Jolimont"
+    },
+    {
+      "code": "S2-07",
+      "nom": "Rue de Jolimont",
+      "secteur": "S2",
+      "dossier": "S2-07 - Rue de Jolimont"
+    },
+    {
+      "code": "S2-08",
+      "nom": "Avenue Léon Blum",
+      "secteur": "S2",
+      "dossier": "S2-08 - Avenue Léon Blum"
+    },
+    {
+      "code": "S3-01",
+      "nom": "Avenue de Lyon",
+      "secteur": "S3",
+      "dossier": "S3-01 - Avenue de Lyon"
+    },
+    {
+      "code": "S3-02",
+      "nom": "Avenue de Lyon - Rue Chabanon",
+      "secteur": "S3",
+      "dossier": "S3-02 - Avenue de Lyon - Rue Chabanon"
+    },
+    {
+      "code": "S3-03",
+      "nom": "Rue du Maroc",
+      "secteur": "S3",
+      "dossier": "S3-03 - Rue du Maroc"
+    },
+    {
+      "code": "S3-04",
+      "nom": "Avenue de Lavaur - Chemin de Michoun",
+      "secteur": "S3",
+      "dossier": "S3-04 - Avenue de Lavaur - Chemin de Michoun"
+    },
+    {
+      "code": "S3-05",
+      "nom": "Rue du Faubourg Bonnefoy",
+      "secteur": "S3",
+      "dossier": "S3-05 - Rue du Faubourg Bonnefoy"
+    },
+    {
+      "code": "S3-06",
+      "nom": "Avenue de Lyon - Pont Matabiau - Bd Bonrepos",
+      "secteur": "S3",
+      "dossier": "S3-06 - Avenue de Lyon - Pont Matabiau - Bd Bonrepos"
+    },
+    {
+      "code": "S3-07",
+      "nom": "Impasse Guisot - Turlan",
+      "secteur": "S3",
+      "dossier": "S3-07 - Impasse Guisot - Turlan"
+    },
+    {
+      "code": "S3-08",
+      "nom": "Rue de Turin",
+      "secteur": "S3",
+      "dossier": "S3-08 - Rue de Turin"
+    },
+    {
+      "code": "S3-09",
+      "nom": "Chemin de Lapujade",
+      "secteur": "S3",
+      "dossier": "S3-09 - Chemin de Lapujade"
+    },
+    {
+      "code": "S3-10",
+      "nom": "Chemin de Lapujade - Rue Michel Ange",
+      "secteur": "S3",
+      "dossier": "S3-10 - Chemin de Lapujade - Rue Michel Ange"
+    },
+    {
+      "code": "S3-11",
+      "nom": "Allée Monsonego Sandler",
+      "secteur": "S3",
+      "dossier": "S3-11 - Allée Monsonego Sandler"
+    },
+    {
+      "code": "S3-12",
+      "nom": "Rue du Maroc - Zone SERNAM",
+      "secteur": "S3",
+      "dossier": "S3-12 - Rue du Maroc - Zone SERNAM"
+    },
+    {
+      "code": "S3-13",
+      "nom": "Rue Dr Pujos",
+      "secteur": "S3",
+      "dossier": "S3-13 - Rue Dr Pujos"
+    }
+  ],
+  "etats": {
+    "S2-01": {
+      "LOT_01": {
+        "02": {
+          "statut": "X",
+          "fichiers": [
+            {
+              "name": "FTP SMCAZ 0-20C GNTA GTRD2  2026-01.pdf",
+              "path": "storage/S2-01/LOT_01/02/1792398533344_FTP_SMCAZ_0-20C_GNTA_GTRD2__2026-01.pdf",
+              "taille": 45548,
+              "date": "2026-10-19",
+              "auteur": "Admin"
+            },
+            {
+              "name": "FTP SMP 0-4SR ART10 JUILL26-01.pdf",
+              "path": "storage/S2-01/LOT_01/02/1792398534991_FTP_SMP_0-4SR_ART10_JUILL26-01.pdf",
+              "taille": 48003,
+              "date": "2026-10-19",
+              "auteur": "Admin"
+            }
+          ],
+          "date": "2026-10-19",
+          "auteur": "Admin"
+        },
+        "05": {
+          "statut": "X",
+          "fichiers": [
+            {
+              "name": "Compactage TOULOUSE - Rue Monserby.pdf",
+              "path": "storage/S2-01/LOT_01/05/1792398538009_Compactage_TOULOUSE_-_Rue_Monserby.pdf",
+              "taille": 798496,
+              "date": "2026-10-19",
+              "auteur": "Admin"
+            },
+            {
+              "name": "Fw_ TOULOUSE - Rue Monserby COMP .zip",
+              "path": "storage/S2-01/LOT_01/05/1792398540137_Fw__TOULOUSE_-_Rue_Monserby_COMP_.zip",
+              "taille": 1011540,
+              "date": "2026-10-19",
+              "auteur": "Admin"
+            }
+          ],
+          "date": "2026-10-19",
+          "auteur": "Admin"
+        }
+      }
+    },
+    "S2-02": {
+      "LOT_01": {
+        "02": {
+          "statut": "X",
+          "fichiers": [
+            {
+              "name": "FTP SMCAZ 0-20C GNTA GTRD2  2026-01.pdf",
+              "path": "storage/S2-02/LOT_01/02/1792398552079_FTP_SMCAZ_0-20C_GNTA_GTRD2__2026-01.pdf",
+              "taille": 45548,
+              "date": "2026-10-19",
+              "auteur": "Admin"
+            },
+            {
+              "name": "FTP SMP 0-4SR ART10 JUILL26-01.pdf",
+              "path": "storage/S2-02/LOT_01/02/1792398553548_FTP_SMP_0-4SR_ART10_JUILL26-01.pdf",
+              "taille": 48003,
+              "date": "2026-10-19",
+              "auteur": "Admin"
+            }
+          ],
+          "date": "2026-10-19",
+          "auteur": "Admin"
+        },
+        "08": {
+          "statut": "X",
+          "fichiers": [
+            {
+              "name": "RAPPORT 1-260925a1 FCTP Rue Periole - St Louis Toulouse_compressed.pdf",
+              "path": "storage/S2-02/LOT_01/08/1792398557717_RAPPORT_1-260925a1_FCTP_Rue_Periole_-_St_Louis_Toulouse_compressed.pdf",
+              "taille": 944177,
+              "date": "2026-10-19",
+              "auteur": "Admin"
+            },
+            {
+              "name": "RAPPORT 1-260818a1 FCTP rue de Périole Toulouse_compressed.pdf",
+              "path": "storage/S2-02/LOT_01/08/1792398744524_RAPPORT_1-260818a1_FCTP_rue_de_Periole_Toulouse_compressed.pdf",
+              "taille": 1016225,
+              "date": "2026-10-19",
+              "auteur": "Admin"
+            }
+          ],
+          "date": "2026-10-19",
+          "auteur": "Admin"
+        },
+        "09": {
+          "statut": "X",
+          "fichiers": [
+            {
+              "name": ".DAP Rue de Periole.pdf",
+              "path": "storage/S2-02/LOT_01/09/1792398559878_.DAP_Rue_de_Periole.pdf",
+              "taille": 407520,
+              "date": "2026-10-19",
+              "auteur": "Admin"
+            }
+          ],
+          "date": "2026-10-19",
+          "auteur": "Admin"
+        },
+        "05": {
+          "statut": "X",
+          "fichiers": [
+            {
+              "name": "Compactage TOULOUSE - Rue Périol - 260388-SED 521.pdf",
+              "path": "storage/S2-02/LOT_01/05/1792398733869_Compactage_TOULOUSE_-_Rue_Periol_-_260388-SED_521.pdf",
+              "taille": 810914,
+              "date": "2026-10-19",
+              "auteur": "Admin"
+            },
+            {
+              "name": "Compactage TOULOUSE - Rue Périole (Aicard - Toussaint).pdf",
+              "path": "storage/S2-02/LOT_01/05/1792398736278_Compactage_TOULOUSE_-_Rue_Periole__Aicard_-_Toussaint_.pdf",
+              "taille": 878559,
+              "date": "2026-10-19",
+              "auteur": "Admin"
+            },
+            {
+              "name": "Compactage TOULOUSE - Rue Périole.pdf",
+              "path": "storage/S2-02/LOT_01/05/1792398738426_Compactage_TOULOUSE_-_Rue_Periole.pdf",
+              "taille": 850180,
+              "date": "2026-10-19",
+              "auteur": "Admin"
+            },
+            {
+              "name": "Q-81735-TOULOUSE - Rue Périole Compactage.pdf",
+              "path": "storage/S2-02/LOT_01/05/1792398740422_Q-81735-TOULOUSE_-_Rue_Periole_Compactage.pdf",
+              "taille": 621060,
+              "date": "2026-10-19",
+              "auteur": "Admin"
+            },
+            {
+              "name": "Q-88217-TOULOUSE - Périole (Aicard-Toussaint).pdf",
+              "path": "storage/S2-02/LOT_01/05/1792398742463_Q-88217-TOULOUSE_-_Periole__Aicard-Toussaint_.pdf",
+              "taille": 621026,
+              "date": "2026-10-19",
+              "auteur": "Admin"
+            }
+          ],
+          "date": "2026-10-19",
+          "auteur": "Admin"
+        }
+      }
+    },
+    "S2-03": {
+      "LOT_01": {
+        "02": {
+          "statut": "X",
+          "fichiers": [
+            {
+              "name": "FTP SMCAZ 0-20C GNTA GTRD2  2026-01.pdf",
+              "path": "storage/S2-03/LOT_01/02/1792398566505_FTP_SMCAZ_0-20C_GNTA_GTRD2__2026-01.pdf",
+              "taille": 45548,
+              "date": "2026-10-19",
+              "auteur": "Admin"
+            },
+            {
+              "name": "FTP SMP 0-4SR ART10 JUILL26-01.pdf",
+              "path": "storage/S2-03/LOT_01/02/1792398568013_FTP_SMP_0-4SR_ART10_JUILL26-01.pdf",
+              "taille": 48003,
+              "date": "2026-10-19",
+              "auteur": "Admin"
+            }
+          ],
+          "date": "2026-10-19",
+          "auteur": "Admin"
+        },
+        "09": {
+          "statut": "X",
+          "fichiers": [
+            {
+              "name": ".DAP jean aicart .pdf",
+              "path": "storage/S2-03/LOT_01/09/1792398571266_.DAP_jean_aicart_.pdf",
+              "taille": 407682,
+              "date": "2026-10-19",
+              "auteur": "Admin"
+            }
+          ],
+          "date": "2026-10-19",
+          "auteur": "Admin"
+        }
+      }
+    },
+    "S2-04": {
+      "LOT_01": {
+        "02": {
+          "statut": "X",
+          "fichiers": [
+            {
+              "name": "FTP SMCAZ 0-20C GNTA GTRD2  2026-01.pdf",
+              "path": "storage/S2-04/LOT_01/02/1792398575110_FTP_SMCAZ_0-20C_GNTA_GTRD2__2026-01.pdf",
+              "taille": 45548,
+              "date": "2026-10-19",
+              "auteur": "Admin"
+            },
+            {
+              "name": "FTP SMP 0-4SR ART10 JUILL26-01.pdf",
+              "path": "storage/S2-04/LOT_01/02/1792398576861_FTP_SMP_0-4SR_ART10_JUILL26-01.pdf",
+              "taille": 48003,
+              "date": "2026-10-19",
+              "auteur": "Admin"
+            }
+          ],
+          "date": "2026-10-19",
+          "auteur": "Admin"
+        },
+        "08": {
+          "statut": "X",
+          "fichiers": [
+            {
+              "name": "RAPPORT 1-260925c1 FCTP rue Leon Jouhaux - Camille Flamarion Toulouse_compressed.pdf",
+              "path": "storage/S2-04/LOT_01/08/1792398580036_RAPPORT_1-260925c1_FCTP_rue_Leon_Jouhaux_-_Camille_Flamarion_Toulouse_compressed.pdf",
+              "taille": 814762,
+              "date": "2026-10-19",
+              "auteur": "Admin"
+            }
+          ],
+          "date": "2026-10-19",
+          "auteur": "Admin"
+        }
+      }
+    },
+    "S2-05": {
+      "LOT_01": {
+        "02": {
+          "statut": "X",
+          "fichiers": [
+            {
+              "name": "FTP SMCAZ 0-20C GNTA GTRD2  2026-01.pdf",
+              "path": "storage/S2-05/LOT_01/02/1792398584343_FTP_SMCAZ_0-20C_GNTA_GTRD2__2026-01.pdf",
+              "taille": 45548,
+              "date": "2026-10-19",
+              "auteur": "Admin"
+            },
+            {
+              "name": "FTP SMP 0-4SR ART10 JUILL26-01.pdf",
+              "path": "storage/S2-05/LOT_01/02/1792398585919_FTP_SMP_0-4SR_ART10_JUILL26-01.pdf",
+              "taille": 48003,
+              "date": "2026-10-19",
+              "auteur": "Admin"
+            }
+          ],
+          "date": "2026-10-19",
+          "auteur": "Admin"
+        },
+        "08": {
+          "statut": "X",
+          "fichiers": [
+            {
+              "name": "RAPPORT 1-260925c1 FCTP rue Leon Jouhaux - Camille Flamarion Toulouse_compressed.pdf",
+              "path": "storage/S2-05/LOT_01/08/1792398588995_RAPPORT_1-260925c1_FCTP_rue_Leon_Jouhaux_-_Camille_Flamarion_Toulouse_compressed.pdf",
+              "taille": 814762,
+              "date": "2026-10-19",
+              "auteur": "Admin"
+            }
+          ],
+          "date": "2026-10-19",
+          "auteur": "Admin"
+        }
+      }
+    },
+    "S2-06": {
+      "LOT_01": {
+        "02": {
+          "statut": "X",
+          "fichiers": [
+            {
+              "name": "FTP SMCAZ 0-20C GNTA GTRD2  2026-01.pdf",
+              "path": "storage/S2-06/LOT_01/02/1792398593454_FTP_SMCAZ_0-20C_GNTA_GTRD2__2026-01.pdf",
+              "taille": 45548,
+              "date": "2026-10-19",
+              "auteur": "Admin"
+            },
+            {
+              "name": "FTP SMP 0-4SR ART10 JUILL26-01.pdf",
+              "path": "storage/S2-06/LOT_01/02/1792398595009_FTP_SMP_0-4SR_ART10_JUILL26-01.pdf",
+              "taille": 48003,
+              "date": "2026-10-19",
+              "auteur": "Admin"
+            }
+          ],
+          "date": "2026-10-19",
+          "auteur": "Admin"
+        },
+        "08": {
+          "statut": "X",
+          "fichiers": [
+            {
+              "name": "RAPPORT 1-260925a1 FCTP Rue Periole - St Louis Toulouse_compressed.pdf",
+              "path": "storage/S2-06/LOT_01/08/1792398598142_RAPPORT_1-260925a1_FCTP_Rue_Periole_-_St_Louis_Toulouse_compressed.pdf",
+              "taille": 944177,
+              "date": "2026-10-19",
+              "auteur": "Admin"
+            }
+          ],
+          "date": "2026-10-19",
+          "auteur": "Admin"
+        }
+      }
+    },
+    "S2-07": {
+      "LOT_01": {
+        "02": {
+          "statut": "X",
+          "fichiers": [
+            {
+              "name": "FTP SMCAZ 0-20C GNTA GTRD2  2026-01.pdf",
+              "path": "storage/S2-07/LOT_01/02/1792398600480_FTP_SMCAZ_0-20C_GNTA_GTRD2__2026-01.pdf",
+              "taille": 45548,
+              "date": "2026-10-19",
+              "auteur": "Admin"
+            },
+            {
+              "name": "FTP SMP 0-4SR ART10 JUILL26-01.pdf",
+              "path": "storage/S2-07/LOT_01/02/1792398601998_FTP_SMP_0-4SR_ART10_JUILL26-01.pdf",
+              "taille": 48003,
+              "date": "2026-10-19",
+              "auteur": "Admin"
+            }
+          ],
+          "date": "2026-10-19",
+          "auteur": "Admin"
+        }
+      }
+    },
+    "S2-08": {
+      "LOT_01": {
+        "02": {
+          "statut": "X",
+          "fichiers": [
+            {
+              "name": "FTP SMCAZ 0-20C GNTA GTRD2  2026-01.pdf",
+              "path": "storage/S2-08/LOT_01/02/1792398604941_FTP_SMCAZ_0-20C_GNTA_GTRD2__2026-01.pdf",
+              "taille": 45548,
+              "date": "2026-10-19",
+              "auteur": "Admin"
+            },
+            {
+              "name": "FTP SMP 0-4SR ART10 JUILL26-01.pdf",
+              "path": "storage/S2-08/LOT_01/02/1792398606735_FTP_SMP_0-4SR_ART10_JUILL26-01.pdf",
+              "taille": 48003,
+              "date": "2026-10-19",
+              "auteur": "Admin"
+            }
+          ],
+          "date": "2026-10-19",
+          "auteur": "Admin"
+        }
+      }
+    },
+    "S3-01": {
+      "LOT_01": {
+        "02": {
+          "statut": "X",
+          "fichiers": [
+            {
+              "name": "FTP SMCAZ 0-20C GNTA GTRD2  2026-01.pdf",
+              "path": "storage/S3-01/LOT_01/02/1792398610214_FTP_SMCAZ_0-20C_GNTA_GTRD2__2026-01.pdf",
+              "taille": 45548,
+              "date": "2026-10-19",
+              "auteur": "Admin"
+            },
+            {
+              "name": "FTP SMP 0-4SR ART10 JUILL26-01.pdf",
+              "path": "storage/S3-01/LOT_01/02/1792398611585_FTP_SMP_0-4SR_ART10_JUILL26-01.pdf",
+              "taille": 48003,
+              "date": "2026-10-19",
+              "auteur": "Admin"
+            }
+          ],
+          "date": "2026-10-19",
+          "auteur": "Admin"
+        },
+        "09": {
+          "statut": "X",
+          "fichiers": [
+            {
+              "name": "DAP - FCTP Toulouse avenue de Lyon.pdf",
+              "path": "storage/S3-01/LOT_01/09/1792398614848_DAP_-_FCTP_Toulouse_avenue_de_Lyon.pdf",
+              "taille": 368772,
+              "date": "2026-10-19",
+              "auteur": "Admin"
+            },
+            {
+              "name": "DAP terres.pdf",
+              "path": "storage/S3-01/LOT_01/09/1792398616688_DAP_terres.pdf",
+              "taille": 1475198,
+              "date": "2026-10-19",
+              "auteur": "Admin"
+            },
+            {
+              "name": "MGM_DAP-2024.pdf",
+              "path": "storage/S3-01/LOT_01/09/1792398618971_MGM_DAP-2024.pdf",
+              "taille": 286264,
+              "date": "2026-10-19",
+              "auteur": "Admin"
+            },
+            {
+              "name": "DAP signé.pdf",
+              "path": "storage/S3-01/LOT_01/09/1792398746705_DAP_signe.pdf",
+              "taille": 1657147,
+              "date": "2026-10-19",
+              "auteur": "Admin"
+            }
+          ],
+          "date": "2026-10-19",
+          "auteur": "Admin"
+        }
+      }
+    },
+    "S3-02": {
+      "LOT_01": {
+        "02": {
+          "statut": "X",
+          "fichiers": [
+            {
+              "name": "FTP SMCAZ 0-20C GNTA GTRD2  2026-01.pdf",
+              "path": "storage/S3-02/LOT_01/02/1792398620868_FTP_SMCAZ_0-20C_GNTA_GTRD2__2026-01.pdf",
+              "taille": 45548,
+              "date": "2026-10-19",
+              "auteur": "Admin"
+            },
+            {
+              "name": "FTP SMP 0-4SR ART10 JUILL26-01.pdf",
+              "path": "storage/S3-02/LOT_01/02/1792398622349_FTP_SMP_0-4SR_ART10_JUILL26-01.pdf",
+              "taille": 48003,
+              "date": "2026-10-19",
+              "auteur": "Admin"
+            }
+          ],
+          "date": "2026-10-19",
+          "auteur": "Admin"
+        }
+      }
+    },
+    "S3-03": {
+      "LOT_01": {
+        "02": {
+          "statut": "X",
+          "fichiers": [
+            {
+              "name": "FTP SMCAZ 0-20C GNTA GTRD2  2026-01.pdf",
+              "path": "storage/S3-03/LOT_01/02/1792398625304_FTP_SMCAZ_0-20C_GNTA_GTRD2__2026-01.pdf",
+              "taille": 45548,
+              "date": "2026-10-19",
+              "auteur": "Admin"
+            },
+            {
+              "name": "FTP SMP 0-4SR ART10 JUILL26-01.pdf",
+              "path": "storage/S3-03/LOT_01/02/1792398626735_FTP_SMP_0-4SR_ART10_JUILL26-01.pdf",
+              "taille": 48003,
+              "date": "2026-10-19",
+              "auteur": "Admin"
+            }
+          ],
+          "date": "2026-10-19",
+          "auteur": "Admin"
+        }
+      }
+    },
+    "S3-04": {
+      "LOT_01": {
+        "02": {
+          "statut": "X",
+          "fichiers": [
+            {
+              "name": "FTP SMCAZ 0-20C GNTA GTRD2  2026-01.pdf",
+              "path": "storage/S3-04/LOT_01/02/1792398629786_FTP_SMCAZ_0-20C_GNTA_GTRD2__2026-01.pdf",
+              "taille": 45548,
+              "date": "2026-10-19",
+              "auteur": "Admin"
+            },
+            {
+              "name": "FTP SMP 0-4SR ART10 JUILL26-01.pdf",
+              "path": "storage/S3-04/LOT_01/02/1792398631400_FTP_SMP_0-4SR_ART10_JUILL26-01.pdf",
+              "taille": 48003,
+              "date": "2026-10-19",
+              "auteur": "Admin"
+            }
+          ],
+          "date": "2026-10-19",
+          "auteur": "Admin"
+        },
+        "08": {
+          "statut": "X",
+          "fichiers": [
+            {
+              "name": "RAPPORT 1-260722b1 FCTP RCU Toulouse Matabiau avenue de Lavaur_compressed.pdf",
+              "path": "storage/S3-04/LOT_01/08/1792398634432_RAPPORT_1-260722b1_FCTP_RCU_Toulouse_Matabiau_avenue_de_Lavaur_compressed.pdf",
+              "taille": 949975,
+              "date": "2026-10-19",
+              "auteur": "Admin"
+            }
+          ],
+          "date": "2026-10-19",
+          "auteur": "Admin"
+        },
+        "09": {
+          "statut": "X",
+          "fichiers": [
+            {
+              "name": ".DAP RUE DE LAVAUR .pdf",
+              "path": "storage/S3-04/LOT_01/09/1792398638112_.DAP_RUE_DE_LAVAUR_.pdf",
+              "taille": 407522,
+              "date": "2026-10-19",
+              "auteur": "Admin"
+            }
+          ],
+          "date": "2026-10-19",
+          "auteur": "Admin"
+        }
+      }
+    },
+    "S3-05": {
+      "LOT_01": {
+        "02": {
+          "statut": "X",
+          "fichiers": [
+            {
+              "name": "FTP SMCAZ 0-20C GNTA GTRD2  2026-01.pdf",
+              "path": "storage/S3-05/LOT_01/02/1792398640013_FTP_SMCAZ_0-20C_GNTA_GTRD2__2026-01.pdf",
+              "taille": 45548,
+              "date": "2026-10-19",
+              "auteur": "Admin"
+            },
+            {
+              "name": "FTP SMP 0-4SR ART10 JUILL26-01.pdf",
+              "path": "storage/S3-05/LOT_01/02/1792398641704_FTP_SMP_0-4SR_ART10_JUILL26-01.pdf",
+              "taille": 48003,
+              "date": "2026-10-19",
+              "auteur": "Admin"
+            }
+          ],
+          "date": "2026-10-19",
+          "auteur": "Admin"
+        }
+      }
+    },
+    "S3-06": {
+      "LOT_01": {
+        "02": {
+          "statut": "X",
+          "fichiers": [
+            {
+              "name": "FTP SMCAZ 0-20C GNTA GTRD2  2026-01.pdf",
+              "path": "storage/S3-06/LOT_01/02/1792398645029_FTP_SMCAZ_0-20C_GNTA_GTRD2__2026-01.pdf",
+              "taille": 45548,
+              "date": "2026-10-19",
+              "auteur": "Admin"
+            },
+            {
+              "name": "FTP SMP 0-4SR ART10 JUILL26-01.pdf",
+              "path": "storage/S3-06/LOT_01/02/1792398646497_FTP_SMP_0-4SR_ART10_JUILL26-01.pdf",
+              "taille": 48003,
+              "date": "2026-10-19",
+              "auteur": "Admin"
+            }
+          ],
+          "date": "2026-10-19",
+          "auteur": "Admin"
+        },
+        "08": {
+          "statut": "X",
+          "fichiers": [
+            {
+              "name": "RAPPORT 1-260722b2 FCTP Pont Matabiau Toulouse_compressed.pdf",
+              "path": "storage/S3-06/LOT_01/08/1792398649608_RAPPORT_1-260722b2_FCTP_Pont_Matabiau_Toulouse_compressed.pdf",
+              "taille": 1171876,
+              "date": "2026-10-19",
+              "auteur": "Admin"
+            }
+          ],
+          "date": "2026-10-19",
+          "auteur": "Admin"
+        }
+      }
+    },
+    "S3-07": {
+      "LOT_01": {
+        "02": {
+          "statut": "X",
+          "fichiers": [
+            {
+              "name": "FTP SMCAZ 0-20C GNTA GTRD2  2026-01.pdf",
+              "path": "storage/S3-07/LOT_01/02/1792398652052_FTP_SMCAZ_0-20C_GNTA_GTRD2__2026-01.pdf",
+              "taille": 45548,
+              "date": "2026-10-19",
+              "auteur": "Admin"
+            },
+            {
+              "name": "FTP SMP 0-4SR ART10 JUILL26-01.pdf",
+              "path": "storage/S3-07/LOT_01/02/1792398653571_FTP_SMP_0-4SR_ART10_JUILL26-01.pdf",
+              "taille": 48003,
+              "date": "2026-10-19",
+              "auteur": "Admin"
+            }
+          ],
+          "date": "2026-10-19",
+          "auteur": "Admin"
+        }
+      }
+    },
+    "S3-08": {
+      "LOT_01": {
+        "02": {
+          "statut": "X",
+          "fichiers": [
+            {
+              "name": "FTP SMCAZ 0-20C GNTA GTRD2  2026-01.pdf",
+              "path": "storage/S3-08/LOT_01/02/1792398657417_FTP_SMCAZ_0-20C_GNTA_GTRD2__2026-01.pdf",
+              "taille": 45548,
+              "date": "2026-10-19",
+              "auteur": "Admin"
+            },
+            {
+              "name": "FTP SMP 0-4SR ART10 JUILL26-01.pdf",
+              "path": "storage/S3-08/LOT_01/02/1792398658986_FTP_SMP_0-4SR_ART10_JUILL26-01.pdf",
+              "taille": 48003,
+              "date": "2026-10-19",
+              "auteur": "Admin"
+            }
+          ],
+          "date": "2026-10-19",
+          "auteur": "Admin"
+        }
+      }
+    },
+    "S3-09": {
+      "LOT_01": {
+        "02": {
+          "statut": "X",
+          "fichiers": [
+            {
+              "name": "FTP SMCAZ 0-20C GNTA GTRD2  2026-01.pdf",
+              "path": "storage/S3-09/LOT_01/02/1792398665950_FTP_SMCAZ_0-20C_GNTA_GTRD2__2026-01.pdf",
+              "taille": 45548,
+              "date": "2026-10-19",
+              "auteur": "Admin"
+            },
+            {
+              "name": "FTP SMP 0-4SR ART10 JUILL26-01.pdf",
+              "path": "storage/S3-09/LOT_01/02/1792398667338_FTP_SMP_0-4SR_ART10_JUILL26-01.pdf",
+              "taille": 48003,
+              "date": "2026-10-19",
+              "auteur": "Admin"
+            }
+          ],
+          "date": "2026-10-19",
+          "auteur": "Admin"
+        },
+        "08": {
+          "statut": "X",
+          "fichiers": [
+            {
+              "name": "RAPPORT 1-260925b1 FCTP Lapujade Phase 1 Toulouse_compressed.pdf",
+              "path": "storage/S3-09/LOT_01/08/1792398670551_RAPPORT_1-260925b1_FCTP_Lapujade_Phase_1_Toulouse_compressed.pdf",
+              "taille": 809005,
+              "date": "2026-10-19",
+              "auteur": "Admin"
+            },
+            {
+              "name": "RAPPORT 1-260925b1 FCTP Lapujade Phase 2 Toulouse_compressed.pdf",
+              "path": "storage/S3-09/LOT_01/08/1792398672806_RAPPORT_1-260925b1_FCTP_Lapujade_Phase_2_Toulouse_compressed.pdf",
+              "taille": 883899,
+              "date": "2026-10-19",
+              "auteur": "Admin"
+            },
+            {
+              "name": "RAPPORT 1-260818a2 FCTP Résidence Lapujade Toulouse_compressed.pdf",
+              "path": "storage/S3-09/LOT_01/08/1792398749004_RAPPORT_1-260818a2_FCTP_Residence_Lapujade_Toulouse_compressed.pdf",
+              "taille": 1122409,
+              "date": "2026-10-19",
+              "auteur": "Admin"
+            }
+          ],
+          "date": "2026-10-19",
+          "auteur": "Admin"
+        }
+      }
+    },
+    "S3-10": {
+      "LOT_01": {
+        "02": {
+          "statut": "X",
+          "fichiers": [
+            {
+              "name": "FTP SMCAZ 0-20C GNTA GTRD2  2026-01.pdf",
+              "path": "storage/S3-10/LOT_01/02/1792398678842_FTP_SMCAZ_0-20C_GNTA_GTRD2__2026-01.pdf",
+              "taille": 45548,
+              "date": "2026-10-19",
+              "auteur": "Admin"
+            },
+            {
+              "name": "FTP SMP 0-4SR ART10 JUILL26-01.pdf",
+              "path": "storage/S3-10/LOT_01/02/1792398680278_FTP_SMP_0-4SR_ART10_JUILL26-01.pdf",
+              "taille": 48003,
+              "date": "2026-10-19",
+              "auteur": "Admin"
+            }
+          ],
+          "date": "2026-10-19",
+          "auteur": "Admin"
+        },
+        "08": {
+          "statut": "X",
+          "fichiers": [
+            {
+              "name": "RAPPORT 1-260925b1 FCTP Lapujade Phase 1 Toulouse_compressed.pdf",
+              "path": "storage/S3-10/LOT_01/08/1792398683632_RAPPORT_1-260925b1_FCTP_Lapujade_Phase_1_Toulouse_compressed.pdf",
+              "taille": 809005,
+              "date": "2026-10-19",
+              "auteur": "Admin"
+            },
+            {
+              "name": "RAPPORT 1-260925b1 FCTP Lapujade Phase 2 Toulouse_compressed.pdf",
+              "path": "storage/S3-10/LOT_01/08/1792398685870_RAPPORT_1-260925b1_FCTP_Lapujade_Phase_2_Toulouse_compressed.pdf",
+              "taille": 883899,
+              "date": "2026-10-19",
+              "auteur": "Admin"
+            },
+            {
+              "name": "RAPPORT 1-260818a2 FCTP Résidence Lapujade Toulouse_compressed.pdf",
+              "path": "storage/S3-10/LOT_01/08/1792398751208_RAPPORT_1-260818a2_FCTP_Residence_Lapujade_Toulouse_compressed.pdf",
+              "taille": 1122409,
+              "date": "2026-10-19",
+              "auteur": "Admin"
+            }
+          ],
+          "date": "2026-10-19",
+          "auteur": "Admin"
+        }
+      }
+    },
+    "S3-11": {
+      "LOT_01": {
+        "02": {
+          "statut": "X",
+          "fichiers": [
+            {
+              "name": "FTP SMCAZ 0-20C GNTA GTRD2  2026-01.pdf",
+              "path": "storage/S3-11/LOT_01/02/1792398687913_FTP_SMCAZ_0-20C_GNTA_GTRD2__2026-01.pdf",
+              "taille": 45548,
+              "date": "2026-10-19",
+              "auteur": "Admin"
+            },
+            {
+              "name": "FTP SMP 0-4SR ART10 JUILL26-01.pdf",
+              "path": "storage/S3-11/LOT_01/02/1792398689456_FTP_SMP_0-4SR_ART10_JUILL26-01.pdf",
+              "taille": 48003,
+              "date": "2026-10-19",
+              "auteur": "Admin"
+            }
+          ],
+          "date": "2026-10-19",
+          "auteur": "Admin"
+        }
+      }
+    },
+    "S3-12": {
+      "LOT_01": {
+        "02": {
+          "statut": "X",
+          "fichiers": [
+            {
+              "name": "FTP SMCAZ 0-20C GNTA GTRD2  2026-01.pdf",
+              "path": "storage/S3-12/LOT_01/02/1792398692712_FTP_SMCAZ_0-20C_GNTA_GTRD2__2026-01.pdf",
+              "taille": 45548,
+              "date": "2026-10-19",
+              "auteur": "Admin"
+            },
+            {
+              "name": "FTP SMP 0-4SR ART10 JUILL26-01.pdf",
+              "path": "storage/S3-12/LOT_01/02/1792398694262_FTP_SMP_0-4SR_ART10_JUILL26-01.pdf",
+              "taille": 48003,
+              "date": "2026-10-19",
+              "auteur": "Admin"
+            }
+          ],
+          "date": "2026-10-19",
+          "auteur": "Admin"
+        }
+      }
+    },
+    "S3-13": {
+      "LOT_01": {
+        "02": {
+          "statut": "X",
+          "fichiers": [
+            {
+              "name": "FTP SMCAZ 0-20C GNTA GTRD2  2026-01.pdf",
+              "path": "storage/S3-13/LOT_01/02/1792398697308_FTP_SMCAZ_0-20C_GNTA_GTRD2__2026-01.pdf",
+              "taille": 45548,
+              "date": "2026-10-19",
+              "auteur": "Admin"
+            },
+            {
+              "name": "FTP SMP 0-4SR ART10 JUILL26-01.pdf",
+              "path": "storage/S3-13/LOT_01/02/1792398698739_FTP_SMP_0-4SR_ART10_JUILL26-01.pdf",
+              "taille": 48003,
+              "date": "2026-10-19",
+              "auteur": "Admin"
+            }
+          ],
+          "date": "2026-10-19",
+          "auteur": "Admin"
+        }
+      }
+    }
+  }
+}

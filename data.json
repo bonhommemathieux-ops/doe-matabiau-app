@@ -412,6 +412,42 @@
           "date": "2026-10-19",
           "auteur": "Admin",
           "commentaire": ""
+        },
+        "4.1": {
+          "statut": "X",
+          "fichiers": [
+            {
+              "name": "FDP-EXISTANT TOPO MONSERBY-PERIOLE.dwg",
+              "path": "storage/troncon/S2-01/4.1/1795248881966_FDP-EXISTANT_TOPO_MONSERBY-PERIOLE.dwg",
+              "taille": 835488,
+              "date": "2026-11-19",
+              "auteur": "Admin"
+            },
+            {
+              "name": "SITUATION-PERIOLE_MONSERBY.jpg",
+              "path": "storage/troncon/S2-01/4.1/1795248881967_SITUATION-PERIOLE_MONSERBY.jpg",
+              "taille": 402562,
+              "date": "2026-11-19",
+              "auteur": "Admin"
+            },
+            {
+              "name": "Toulouse_RuePeriole-Monserby_REC20261119.dwg",
+              "path": "storage/troncon/S2-01/4.1/1795248881968_Toulouse_RuePeriole-Monserby_REC20261119.dwg",
+              "taille": 2326362,
+              "date": "2026-11-19",
+              "auteur": "Admin"
+            },
+            {
+              "name": "Toulouse_RuePeriole-Monserby_REC20261119-M1_RP200.pdf",
+              "path": "storage/troncon/S2-01/4.1/1795248881969_Toulouse_RuePeriole-Monserby_REC20261119-M1_RP200.pdf",
+              "taille": 1786565,
+              "date": "2026-11-19",
+              "auteur": "Admin"
+            }
+          ],
+          "date": "2026-11-19",
+          "auteur": "Admin",
+          "commentaire": "Récolement MAPPIA livraison 2026-11-19"
         }
       },
       "S2-02": {
@@ -457,9 +493,117 @@
           "date": "2026-10-19",
           "auteur": "Admin",
           "commentaire": ""
+        },
+        "4.1": {
+          "statut": "X",
+          "fichiers": [
+            {
+              "name": "FDP-EXISTANT TOPO MONSERBY-PERIOLE.dwg",
+              "path": "storage/troncon/S2-02/4.1/1795248882066_FDP-EXISTANT_TOPO_MONSERBY-PERIOLE.dwg",
+              "taille": 835488,
+              "date": "2026-11-19",
+              "auteur": "Admin"
+            },
+            {
+              "name": "SITUATION-PERIOLE_MONSERBY.jpg",
+              "path": "storage/troncon/S2-02/4.1/1795248882067_SITUATION-PERIOLE_MONSERBY.jpg",
+              "taille": 402562,
+              "date": "2026-11-19",
+              "auteur": "Admin"
+            },
+            {
+              "name": "Toulouse_RuePeriole-Monserby_REC20261119.dwg",
+              "path": "storage/troncon/S2-02/4.1/1795248882068_Toulouse_RuePeriole-Monserby_REC20261119.dwg",
+              "taille": 2326362,
+              "date": "2026-11-19",
+              "auteur": "Admin"
+            },
+            {
+              "name": "Toulouse_RuePeriole-Monserby_REC20261119-P1_RP200.pdf",
+              "path": "storage/troncon/S2-02/4.1/1795248882069_Toulouse_RuePeriole-Monserby_REC20261119-P1_RP200.pdf",
+              "taille": 1533803,
+              "date": "2026-11-19",
+              "auteur": "Admin"
+            },
+            {
+              "name": "Toulouse_RuePeriole-Monserby_REC20261119-P2_RP200.pdf",
+              "path": "storage/troncon/S2-02/4.1/1795248882070_Toulouse_RuePeriole-Monserby_REC20261119-P2_RP200.pdf",
+              "taille": 1577292,
+              "date": "2026-11-19",
+              "auteur": "Admin"
+            },
+            {
+              "name": "Toulouse_RuePeriole-Monserby_REC20261119-P3_RP200.pdf",
+              "path": "storage/troncon/S2-02/4.1/1795248882071_Toulouse_RuePeriole-Monserby_REC20261119-P3_RP200.pdf",
+              "taille": 1653120,
+              "date": "2026-11-19",
+              "auteur": "Admin"
+            },
+            {
+              "name": "Toulouse_RuePeriole-Monserby_REC20261119-P4_RP200.pdf",
+              "path": "storage/troncon/S2-02/4.1/1795248882072_Toulouse_RuePeriole-Monserby_REC20261119-P4_RP200.pdf",
+              "taille": 1495097,
+              "date": "2026-11-19",
+              "auteur": "Admin"
+            },
+            {
+              "name": "RueDePeriole111.jpg",
+              "path": "storage/troncon/S2-02/4.1/1795248882073_RueDePeriole111.jpg",
+              "taille": 90163,
+              "date": "2026-11-19",
+              "auteur": "Admin"
+            },
+            {
+              "name": "RueDePeriole120.jpg",
+              "path": "storage/troncon/S2-02/4.1/1795248882074_RueDePeriole120.jpg",
+              "taille": 49608,
+              "date": "2026-11-19",
+              "auteur": "Admin"
+            }
+          ],
+          "date": "2026-11-19",
+          "auteur": "Admin",
+          "commentaire": "Récolement MAPPIA livraison 2026-11-19"
         }
       },
-      "S2-03": {},
+      "S2-03": {
+        "4.1": {
+          "statut": "X",
+          "fichiers": [
+            {
+              "name": "FDP-EXISTANT TOPO JEANAICARD.dwg",
+              "path": "storage/troncon/S2-03/4.1/1795248882166_FDP-EXISTANT_TOPO_JEANAICARD.dwg",
+              "taille": 266396,
+              "date": "2026-11-19",
+              "auteur": "Admin"
+            },
+            {
+              "name": "SITUATION-AICARD.jpg",
+              "path": "storage/troncon/S2-03/4.1/1795248882167_SITUATION-AICARD.jpg",
+              "taille": 340601,
+              "date": "2026-11-19",
+              "auteur": "Admin"
+            },
+            {
+              "name": "Toulouse_RueJeanAicard_REC20261119-Aicard_RP200.pdf",
+              "path": "storage/troncon/S2-03/4.1/1795248882168_Toulouse_RueJeanAicard_REC20261119-Aicard_RP200.pdf",
+              "taille": 1457517,
+              "date": "2026-11-19",
+              "auteur": "Admin"
+            },
+            {
+              "name": "Toulouse_RueJeanAicard_REC20261119.dwg",
+              "path": "storage/troncon/S2-03/4.1/1795248882169_Toulouse_RueJeanAicard_REC20261119.dwg",
+              "taille": 795644,
+              "date": "2026-11-19",
+              "auteur": "Admin"
+            }
+          ],
+          "date": "2026-11-19",
+          "auteur": "Admin",
+          "commentaire": "Récolement MAPPIA livraison 2026-11-19"
+        }
+      },
       "S2-04": {},
       "S2-05": {},
       "S2-06": {},

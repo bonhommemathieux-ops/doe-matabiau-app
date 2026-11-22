@@ -605,7 +605,23 @@
         }
       },
       "S2-04": {},
-      "S2-05": {},
+      "S2-05": {
+        "5.1": {
+          "statut": "X",
+          "fichiers": [
+            {
+              "name": "Compactage TOULOUSE Lapujade et Jouhaux-260492 SED T068.pdf",
+              "path": "storage/troncon/S2-05/5.1/1795345768766_Compactage_TOULOUSE_Lapujade_et_Jouhaux-260492_SED_T068.pdf",
+              "taille": 2648312,
+              "date": "2026-11-13",
+              "auteur": "Admin"
+            }
+          ],
+          "date": "2026-11-13",
+          "auteur": "Admin",
+          "commentaire": "Rapport SAUR 640492 SED T068"
+        }
+      },
       "S2-06": {},
       "S2-07": {},
       "S2-08": {},
@@ -617,8 +633,40 @@
       "S3-06": {},
       "S3-07": {},
       "S3-08": {},
-      "S3-09": {},
-      "S3-10": {},
+      "S3-09": {
+        "5.1": {
+          "statut": "X",
+          "fichiers": [
+            {
+              "name": "Compactage TOULOUSE Lapujade et Jouhaux-260492 SED T068.pdf",
+              "path": "storage/troncon/S3-09/5.1/1795345768767_Compactage_TOULOUSE_Lapujade_et_Jouhaux-260492_SED_T068.pdf",
+              "taille": 2648312,
+              "date": "2026-11-13",
+              "auteur": "Admin"
+            }
+          ],
+          "date": "2026-11-13",
+          "auteur": "Admin",
+          "commentaire": "Rapport SAUR 640492 SED T068"
+        }
+      },
+      "S3-10": {
+        "5.1": {
+          "statut": "X",
+          "fichiers": [
+            {
+              "name": "Compactage TOULOUSE Lapujade et Jouhaux-260492 SED T068.pdf",
+              "path": "storage/troncon/S3-10/5.1/1795345768768_Compactage_TOULOUSE_Lapujade_et_Jouhaux-260492_SED_T068.pdf",
+              "taille": 2648312,
+              "date": "2026-11-13",
+              "auteur": "Admin"
+            }
+          ],
+          "date": "2026-11-13",
+          "auteur": "Admin",
+          "commentaire": "Rapport SAUR 640492 SED T068"
+        }
+      },
       "S3-11": {},
       "S3-12": {},
       "S3-13": {}
